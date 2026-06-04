@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deli Menu — Papa's Liquor & Deli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #0a0a0a;
+      --white:     #ffffff;
+      --off-white: #f4f1ec;
+      --panel:     #f9f7f4;
+      --border:    rgba(0,0,0,0.09);
+      --muted:     rgba(0,0,0,0.45);
+      --gold:      #b8841f;
+      --gold-dim:  rgba(184,132,31,0.1);
+      --red:       #b83232;
+      --red-bg:    rgba(184,50,50,0.07);
+      --green:     #2e7d4f;
+      --green-bg:  rgba(46,125,79,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--black);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-back {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 7rem 3rem 3.5rem;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'DELI';
+      position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem; font-weight: 900;
+      color: rgba(0,0,0,0.04); line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .page-header-inner { max-width: 1080px; margin: 0 auto; position: relative; }
+    .page-tag {
+      font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.6rem;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900; line-height: 1; margin-bottom: 0.6rem;
+    }
+    .page-sub {
+      font-size: 0.88rem; font-weight: 300; color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .header-meta {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .meta-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--muted);
+    }
+
+    /* ── STICKY SECTION NAV ── */
+    .section-nav {
+      position: sticky; top: 57px; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .section-nav-inner {
+      display: flex; max-width: 1080px; margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .snav-btn {
+      padding: 0.9rem 1.4rem;
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      background: transparent; border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer; color: var(--muted);
+      white-space: nowrap; transition: color 0.2s, border-color 0.2s;
+    }
+    .snav-btn:hover { color: var(--black); }
+    .snav-btn.active { color: var(--red); border-bottom-color: var(--red); font-weight: 600; }
+
+    /* ── CONTENT ── */
+    .content { max-width: 1080px; margin: 0 auto; padding: 3rem 3rem 6rem; }
+
+    /* ── SECTION HEADER ── */
+    .menu-section { margin-bottom: 4rem; }
+    .menu-section-header { margin-bottom: 2rem; }
+    .section-label {
+      font-size: 0.62rem; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; line-height: 1.1;
+    }
+    .section-rule { width: 36px; height: 2px; background: var(--red); margin-top: 0.75rem; }
+
+    /* ── SPECIAL BANNER ── */
+    .special-banner {
+      background: var(--black);
+      color: var(--white);
+      padding: 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem; align-items: center;
+      margin-bottom: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .special-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -55deg, transparent, transparent 40px,
+        rgba(184,132,31,0.04) 40px, rgba(184,132,31,0.04) 41px
+      );
+    }
+    .special-price-badge {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--gold);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .special-price-badge span:first-child {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(0,0,0,0.6);
+    }
+    .special-price-badge span:last-child {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900; color: var(--black); line-height: 1;
+    }
+    .special-info { position: relative; z-index: 1; }
+    .special-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .special-desc {
+      font-size: 0.82rem; font-weight: 300;
+      color: rgba(255,255,255,0.65); line-height: 1.7;
+    }
+    .special-options {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .special-option-group { }
+    .special-option-label {
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.2rem;
+    }
+    .special-option-values {
+      font-size: 0.78rem; font-weight: 300;
+      color: rgba(255,255,255,0.6);
+    }
+    .addon-note {
+      font-size: 0.72rem; font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 0.5rem; margin-top: 0.5rem;
+    }
+
+    /* ── SANDWICH GRID ── */
+    .sandwich-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .sandwich-card {
+      background: var(--white);
+      display: flex; flex-direction: column;
+      transition: background 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .sandwich-card:hover { background: var(--panel); }
+    .sandwich-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--red);
+      transition: width 0.3s ease;
+    }
+    .sandwich-card:hover::after { width: 100%; }
+
+    /* image slot */
+    .sandwich-img {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--off-white);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .sandwich-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .sandwich-card:hover .sandwich-img img { transform: scale(1.04); }
+    .sandwich-img-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem; width: 100%; height: 100%;
+      color: rgba(0,0,0,0.2);
+    }
+    .sandwich-img-placeholder span:first-child { font-size: 2rem; opacity: 0.4; }
+    .sandwich-img-placeholder span:last-child {
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    }
+
+    .sandwich-body { padding: 1.4rem 1.4rem 1.6rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .sandwich-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--black);
+      line-height: 1.2;
+    }
+    .sandwich-ingredients {
+      font-size: 0.8rem; font-weight: 300;
+      color: var(--muted); line-height: 1.65; flex: 1;
+    }
+    .sandwich-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 0.6rem; padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    .sandwich-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--black);
+    }
+    .sandwich-badge {
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      background: var(--red-bg); color: var(--red);
+      border: 1px solid rgba(184,50,50,0.2);
+      border-radius: 2px;
+    }
+    .sandwich-badge.green {
+      background: var(--green-bg); color: var(--green);
+      border-color: rgba(46,125,79,0.2);
+    }
+    .sandwich-badge.gold {
+      background: var(--gold-dim); color: var(--gold);
+      border-color: rgba(184,132,31,0.2);
+    }
+
+    /* ── SALADS GRID ── */
+    .salads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .salad-card {
+      background: var(--white); padding: 1.6rem 1.4rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: background 0.2s; position: relative; overflow: hidden;
+    }
+    .salad-card:hover { background: var(--panel); }
+    .salad-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--green);
+      transition: width 0.3s ease;
+    }
+    .salad-card:hover::after { width: 100%; }
+    .salad-icon { font-size: 1.6rem; }
+    .salad-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: var(--black);
+    }
+    .salad-desc { font-size: 0.8rem; font-weight: 300; color: var(--muted); line-height: 1.6; flex: 1; }
+    .salad-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--black);
+      padding-top: 0.5rem; border-top: 1px solid var(--border);
+    }
+
+    /* ── DESSERT ── */
+    .dessert-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; gap: 2rem;
+      max-width: 480px;
+    }
+    .dessert-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .dessert-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem;
+    }
+    .dessert-desc { font-size: 0.82rem; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 0.5rem; }
+    .dessert-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: var(--gold);
+    }
+    .footer-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+    .footer-legal { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .page-header { padding: 6rem 1.5rem 2.5rem; }
+      .section-nav-inner { padding: 0 1rem; }
+      .content { padding: 2rem 1.5rem 4rem; }
+      .special-banner { grid-template-columns: 1fr; gap: 1.2rem; }
+      .sandwich-grid { grid-template-columns: 1fr; }
+      .salads-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Papa's <span>Liquor & Deli</span></a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="page-tag">Fresh · Tasty · Made With Love</p>
+    <h1 class="page-title">Deli Menu</h1>
+    <p class="page-sub">Made to order, every day. Breakfast 8:30 AM–12 PM · Lunch 11 AM–3 PM · Closed Sunday</p>
+    <div class="header-meta">
+      <div class="meta-pill">🥖 Sandwiches & Subs</div>
+      <div class="meta-pill">🥗 Fresh Salads</div>
+      <div class="meta-pill">🍰 Dessert</div>
+      <div class="meta-pill">🍽 We Cater</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION NAV -->
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="snav-btn active" onclick="scrollTo('special')">The Special</button>
+    <button class="snav-btn" onclick="scrollTo('signatures')">Signatures</button>
+    <button class="snav-btn" onclick="scrollTo('salads')">Salads</button>
+    <button class="snav-btn" onclick="scrollTo('dessert')">Dessert</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- THE ULTIMATE SPECIAL -->
+  <div class="menu-section" id="special">
+    <div class="menu-section-header">
+      <p class="section-label">Daily Special</p>
+      <h2 class="section-title">The Ultimate Special</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="special-banner">
+      <div class="special-price-badge">
+        <span>Only</span>
+        <span>$8.99</span>
+      </div>
+      <div class="special-info">
+        <div class="special-name">The Ultimate Special</div>
+        <div class="special-desc">
+          All served with Lettuce, Tomato, Onion, Mayo & Mustard. Includes a side.
+        </div>
+        <div class="addon-note">Add-ons available for $1.50 each: Bacon · Avocado · Cheese</div>
+      </div>
+      <div class="special-options">
+        <div class="special-option-group">
+          <div class="special-option-label">Choose Your Bread</div>
+          <div class="special-option-values">White · Whole Wheat · 8" Roll</div>
+        </div>
+        <div class="special-option-group">
+          <div class="special-option-label">Choose Your Protein</div>
+          <div class="special-option-values">Turkey · Ham · Roast Beef · Tuna</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELI SIGNATURES -->
+  <div class="menu-section" id="signatures">
+    <div class="menu-section-header">
+      <p class="section-label">Handcrafted</p>
+      <h2 class="section-title">Deli Signatures & Favorites</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="sandwich-grid">
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Papas Loaded</div>
+          <div class="sandwich-ingredients">Turkey, pastrami, bacon, Swiss, lettuce, pickled onions & horseradish sauce.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$17.00</div>
+            <span class="sandwich-badge">Signature</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Italiano Torpedo</div>
+          <div class="sandwich-ingredients">Ham, turkey, bacon, provolone, lettuce, onion, tomato, pepperoncini & Italian dressing.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$16.00</div>
+            <span class="sandwich-badge">Signature</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Papas Beef Cheese Steak</div>
+          <div class="sandwich-ingredients">Grilled onions, provolone, American, pickled onions & horseradish sauce.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$17.00</div>
+            <span class="sandwich-badge">Signature</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Mamas Chicken Cheese Steak</div>
+          <div class="sandwich-ingredients">Grilled onions, provolone, American, pickled onions & horseradish sauce.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$16.00</div>
+            <span class="sandwich-badge">Signature</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Grilled Chicken or Turkey Club</div>
+          <div class="sandwich-ingredients">Bacon, lettuce, tomato, onion, mayo.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$16.00</div>
+            <span class="sandwich-badge gold">Club</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Hot Pastrami</div>
+          <div class="sandwich-ingredients">Swiss cheese and mustard.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$14.00</div>
+            <span class="sandwich-badge">Hot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Meatball</div>
+          <div class="sandwich-ingredients">Marinara sauce, mozzarella and Parmesan cheese.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$14.00</div>
+            <span class="sandwich-badge">Hot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">BLT</div>
+          <div class="sandwich-ingredients">Crispy bacon, lettuce, tomato, mayo.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$14.00</div>
+            <span class="sandwich-badge gold">Classic</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Chicken Bacon Chipotle</div>
+          <div class="sandwich-ingredients">Lettuce & tomato.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$16.00</div>
+            <span class="sandwich-badge">Signature</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Grilled Chicken Pesto</div>
+          <div class="sandwich-ingredients">Lettuce, tomato & Parmesan.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$16.00</div>
+            <span class="sandwich-badge green">Grilled</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Buffalo Chicken Ranch</div>
+          <div class="sandwich-ingredients">Buffalo sauce, ranch dressing, lettuce, tomato.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$14.00</div>
+            <span class="sandwich-badge">Signature</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Tuna Melt</div>
+          <div class="sandwich-ingredients">Tomato and cheddar.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$13.00</div>
+            <span class="sandwich-badge gold">Classic</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥑</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Avocado Toast</div>
+          <div class="sandwich-ingredients">Avocado, tomato, olives, lettuce, shaved Parmesan & balsamic glaze.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$14.00</div>
+            <span class="sandwich-badge green">Fresh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sandwich-card">
+        <div class="sandwich-img">
+          <div class="sandwich-img-placeholder">
+            <span>🥖</span>
+            <span>Photo Coming Soon</span>
+          </div>
+        </div>
+        <div class="sandwich-body">
+          <div class="sandwich-name">Turkey Sandwich</div>
+          <div class="sandwich-ingredients">Cheddar cheese, lettuce, tomatoes & onions.</div>
+          <div class="sandwich-footer">
+            <div class="sandwich-price">$11.99</div>
+            <span class="sandwich-badge gold">Classic</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FRESH SALADS -->
+  <div class="menu-section" id="salads">
+    <div class="menu-section-header">
+      <p class="section-label">Fresh & Light</p>
+      <h2 class="section-title">Fresh Salads</h2>
+      <div class="section-rule" style="background: var(--green);"></div>
+    </div>
+    <div class="salads-grid">
+
+      <div class="salad-card">
+        <div class="salad-icon">🫒</div>
+        <div class="salad-name">Greek Salad</div>
+        <div class="salad-desc">Crisp cucumber, ripe tomato, onion, olives, feta.</div>
+        <div class="salad-price">$9.99</div>
+      </div>
+
+      <div class="salad-card">
+        <div class="salad-icon">🥬</div>
+        <div class="salad-name">Caesar Salad</div>
+        <div class="salad-desc">Classic romaine lettuce, Parmesan, croutons, house Caesar dressing.</div>
+        <div class="salad-price">$9.99</div>
+      </div>
+
+      <div class="salad-card">
+        <div class="salad-icon">🍝</div>
+        <div class="salad-name">Macaroni Salad</div>
+        <div class="salad-desc">Served with our signature creamy house dressing.</div>
+        <div class="salad-price">$3.99</div>
+      </div>
+
+      <div class="salad-card">
+        <div class="salad-icon">🥔</div>
+        <div class="salad-name">Potato Salad</div>
+        <div class="salad-desc">Served with our signature creamy house dressing.</div>
+        <div class="salad-price">$3.99</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DESSERT -->
+  <div class="menu-section" id="dessert">
+    <div class="menu-section-header">
+      <p class="section-label">Sweet Finish</p>
+      <h2 class="section-title">Dessert</h2>
+      <div class="section-rule" style="background: var(--gold);"></div>
+    </div>
+    <div class="dessert-card">
+      <div class="dessert-icon">🍰</div>
+      <div>
+        <div class="dessert-name">Cheesecake</div>
+        <div class="dessert-desc">A delicious slice with your choice of drizzle: Strawberry, Caramel, Raspberry, or Chocolate.</div>
+        <div class="dessert-price">$2.99</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Papa's Liquor & Deli</div>
+  <div class="footer-note">12759 Poway Rd #1, Poway, CA 92064 · (858) 842-1111</div>
+  <div class="footer-legal">Deli hours: Breakfast 8:30–12 PM · Lunch 11 AM–3 PM · Closed Sunday</div>
+</footer>
+
+<script>
+  function scrollTo(id) {
+    document.querySelectorAll('.snav-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 110;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  // Auto-highlight section nav on scroll
+  const sections = ['special','signatures','salads','dessert'];
+  window.addEventListener('scroll', () => {
+    let current = 'special';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 140) current = id;
+    });
+    document.querySelectorAll('.snav-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', sections[i] === current);
+    });
+  });
+</script>
+
+</body>
+</html>
