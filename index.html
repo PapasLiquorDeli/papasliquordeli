@@ -9,13 +9,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:       #0a0a0a;
+      --black:       #3a2a1a;
       --off-black:   #fafaf7;
       --panel:       #f4f1ec;
-      --border:      rgba(0,0,0,0.1);
+      --border:      rgba(184,50,50,0.15);
       --white:       #ffffff;
       --off-white:   #f0ede8;
-      --muted:       rgba(0,0,0,0.45);
+      --muted:       rgba(90,55,30,0.55);
       --gold:        #b8841f;
       --gold-light:  #d4a030;
       --gold-dim:    rgba(184,132,31,0.12);
@@ -57,7 +57,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem; font-weight: 700;
       letter-spacing: 0.03em;
-      color: var(--black);
+      color: var(--deli-red);
     }
     .nav-logo span { color: var(--gold); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
@@ -85,7 +85,7 @@
       background: repeating-linear-gradient(
         -55deg,
         transparent, transparent 60px,
-        rgba(184,132,31,0.05) 60px, rgba(184,132,31,0.05) 61px
+        rgba(184,50,50,0.04) 60px, rgba(184,50,50,0.04) 61px
       );
       pointer-events: none;
     }
@@ -116,7 +116,7 @@
       font-family: 'Playfair Display', serif;
       font-size: clamp(3.8rem, 10vw, 8rem);
       font-weight: 900; line-height: 0.93; letter-spacing: -0.02em;
-      color: var(--black);
+      color: var(--deli-red);
       margin-bottom: 1.4rem;
       animation: fadeUp 0.75s 0.08s ease both;
     }
@@ -124,7 +124,7 @@
 
     .hero-tagline {
       font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase;
-      color: rgba(0,0,0,0.4); margin-bottom: 2.2rem;
+      color: rgba(184,132,31,0.7); margin-bottom: 2.2rem;
       animation: fadeUp 0.75s 0.14s ease both;
     }
 
@@ -239,6 +239,7 @@
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 700; line-height: 1.1; margin-bottom: 1rem;
+      color: var(--deli-red);
     }
     .section-rule {
       width: 40px; height: 1px;
@@ -257,7 +258,7 @@
     }
     .about-text p {
       font-size: 0.92rem; font-weight: 300; line-height: 1.9;
-      color: rgba(0,0,0,0.6); margin-bottom: 1rem;
+      color: var(--muted); margin-bottom: 1rem;
     }
     .stat-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
@@ -274,7 +275,7 @@
     .stat-label {
       font-size: 0.68rem; font-weight: 500;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(0,0,0,0.5);
+      color: var(--muted);
     }
 
     /* ── MENU ── */
@@ -339,18 +340,18 @@
     .offering-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;
-      color: var(--black);
+      color: var(--deli-red);
     }
     .offering-desc {
       font-size: 0.82rem; font-weight: 300; line-height: 1.75;
-      color: rgba(0,0,0,0.5);
+      color: var(--muted);
     }
     .offering-items {
       list-style: none; margin-top: 0.85rem;
       display: flex; flex-direction: column; gap: 0.35rem;
     }
     .offering-items li {
-      font-size: 0.76rem; color: rgba(0,0,0,0.35);
+      font-size: 0.76rem; color: var(--muted);
       padding-left: 0.85rem; position: relative;
     }
     .offering-items li::before { content: '—'; position: absolute; left: 0; font-size: 0.65rem; }
@@ -387,17 +388,17 @@
     .hours-table tr { border-bottom: 1px solid var(--border); }
     .hours-table tr:last-child { border-bottom: none; }
     .hours-table td { padding: 0.78rem 0; font-size: 0.87rem; }
-    .hours-table td:first-child { color: rgba(0,0,0,0.45); font-weight: 300; }
+    .hours-table td:first-child { color: var(--muted); font-weight: 300; }
     .hours-table td:last-child { text-align: right; }
     .hours-table tr.today td { color: var(--gold); font-weight: 500; }
-    .hours-table tr.closed td { color: rgba(0,0,0,0.2); }
+    .hours-table tr.closed td { color: rgba(184,132,31,0.3); }
 
     .map-placeholder {
       background: var(--white); border: 1px solid var(--border);
       height: 260px; display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 0.5rem; margin-bottom: 1.5rem;
-      color: rgba(0,0,0,0.2);
+      color: rgba(184,132,31,0.4);
       font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
     }
     .map-icon { font-size: 1.8rem; opacity: 0.3; }
@@ -441,7 +442,7 @@
     .form-field label {
       font-size: 0.62rem; font-weight: 500;
       letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(0,0,0,0.4);
+      color: var(--muted);
     }
     .form-field input,
     .form-field textarea {
@@ -468,7 +469,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1rem; font-weight: 700; color: var(--gold);
     }
-    .footer-note { font-size: 0.72rem; color: var(--muted); }
+    .footer-note { font-size: 0.72rem; color: rgba(184,132,31,0.7); }
     .footer-legal { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
 
     /* ── AGE GATE ── */
@@ -481,16 +482,16 @@
     .ag-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem; font-weight: 700;
-      color: var(--gold); margin-bottom: 2rem;
+      color: var(--deli-red); margin-bottom: 2rem;
     }
     .ag-rule { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); margin: 0 auto 2rem; }
     .age-gate-box h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem; font-weight: 700; color: var(--black); margin-bottom: 0.6rem;
+      font-size: 2rem; font-weight: 700; color: var(--deli-red); margin-bottom: 0.6rem;
     }
     .age-gate-box p {
       font-size: 0.85rem; font-weight: 300;
-      color: rgba(0,0,0,0.45); margin-bottom: 2rem; line-height: 1.6;
+      color: var(--muted); margin-bottom: 2rem; line-height: 1.6;
     }
     .age-gate-btns { display: flex; gap: 0.75rem; justify-content: center; }
     #age-no {
@@ -766,7 +767,7 @@
       <p class="section-tag">Get In Touch</p>
       <h2 class="section-title">We'd love to hear from you.</h2>
       <div class="section-rule"></div>
-      <p style="font-size:0.88rem;font-weight:300;color:rgba(0,0,0,0.45);line-height:1.85;margin-bottom:2rem;">Questions, catering inquiries, or just want to say hi — reach out and we'll get back to you soon.</p>
+      <p style="font-size:0.88rem;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:2rem;">Questions, catering inquiries, or just want to say hi — reach out and we'll get back to you soon.</p>
       <div class="contact-items">
         <div class="contact-item">
           <div class="contact-item-icon">📍</div>
@@ -803,17 +804,24 @@
 
 <script>
   function enterSite() {
+    sessionStorage.setItem('ageVerified', 'true');
     document.getElementById('ageGate').style.display = 'none';
     document.body.style.overflow = '';
   }
   function denyEntry() {
     document.getElementById('ageGate').innerHTML = `
       <div style="text-align:center;max-width:340px;">
-        <p style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#0a0a0a;margin-bottom:0.75rem;">Come back when you're ready.</p>
-        <p style="font-size:0.82rem;font-weight:300;color:rgba(0,0,0,0.4);">You must be 21 or older to visit this site.</p>
+        <p style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--deli-red);margin-bottom:0.75rem;">Come back when you're ready.</p>
+        <p style="font-size:0.82rem;font-weight:300;color:var(--muted);">You must be 21 or older to visit this site.</p>
       </div>`;
   }
-  document.body.style.overflow = 'hidden';
+  // Only show age gate if not already verified this session
+  if (sessionStorage.getItem('ageVerified') === 'true') {
+    document.getElementById('ageGate').style.display = 'none';
+    document.body.style.overflow = '';
+  } else {
+    document.body.style.overflow = 'hidden';
+  }
 
   // Highlight today
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
