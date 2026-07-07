@@ -177,16 +177,6 @@
     }
     .btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    .btn-age {
-      background: var(--gold); color: var(--black);
-      border: 1px solid var(--gold);
-      padding: 0.82rem 2rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      cursor: pointer; transition: opacity 0.2s;
-    }
-    .btn-age:hover { opacity: 0.85; }
 
     .btn-doordash {
       background: #ff3008; color: var(--white);
@@ -473,35 +463,264 @@
     .footer-legal { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
 
     /* ── AGE GATE ── */
-    .age-gate {
-      position: fixed; inset: 0; background: var(--white);
-      z-index: 999;
-      display: flex; align-items: center; justify-content: center; padding: 2rem;
+
+    .scroll-hint {
+      position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      opacity: 0.35; color: var(--black);
     }
-    .age-gate-box { text-align: center; max-width: 400px; }
-    .ag-logo {
+    .scroll-hint span { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; }
+    .scroll-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+
+    /* ── SHARED ── */
+    section { padding: 6rem 3rem; }
+    .section-tag {
+      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem; font-weight: 700;
-      color: var(--deli-red); margin-bottom: 2rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.1; margin-bottom: 1rem;
+      color: var(--deli-red);
     }
-    .ag-rule { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); margin: 0 auto 2rem; }
-    .age-gate-box h2 {
+    .section-rule {
+      width: 40px; height: 1px;
+      background: var(--gold); margin-bottom: 2rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-grid {
+      display: block;
+      max-width: 780px; margin: 0 auto;
+    }
+    .about-text p {
+      font-size: 0.92rem; font-weight: 300; line-height: 1.9;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--border);
+    }
+    .stat-card {
+      background: var(--white);
+      padding: 1.6rem 1.4rem; text-align: center;
+      border-left: 2px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .stat-card:hover { border-left-color: var(--gold); background: var(--panel); }
+    .stat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+    .stat-label {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── MENU ── */
+    #menu { background: var(--white); }
+    .menu-inner { max-width: 1080px; margin: 0 auto; }
+
+    /* deli banner */
+    .deli-banner {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.2rem 1.8rem; margin-bottom: 2.5rem;
+      background: linear-gradient(135deg, var(--deli-red-bg), var(--deli-green-bg));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: 3px solid var(--deli-red);
+    }
+    .deli-banner-text { font-size: 0.82rem; font-weight: 300; color: rgba(0,0,0,0.6); }
+    .deli-banner-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem; font-weight: 700; color: var(--deli-red); margin-bottom: 0.6rem;
+      font-size: 1.1rem; font-weight: 700; color: var(--black);
+      margin-bottom: 0.2rem;
     }
-    .age-gate-box p {
-      font-size: 0.85rem; font-weight: 300;
-      color: var(--muted); margin-bottom: 2rem; line-height: 1.6;
+
+    .offerings-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
     }
-    .age-gate-btns { display: flex; gap: 0.75rem; justify-content: center; }
-    #age-no {
-      background: transparent; color: rgba(0,0,0,0.4);
-      padding: 0.82rem 1.8rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.7rem; font-weight: 500;
+    .offering-card {
+      background: var(--white);
+      padding: 2rem 1.6rem;
+      position: relative; overflow: hidden;
+      transition: background 0.25s;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .offering-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      transition: width 0.3s ease;
+    }
+    .offering-card.deli::after   { background: var(--deli-red); }
+    .offering-card.liquor::after { background: var(--gold); }
+    .offering-card.extra::after  { background: var(--deli-green); }
+    .offering-card:hover { background: var(--off-white); }
+    .offering-card:hover::after { width: 100%; }
+
+    /* deli cards get subtle red tint on hover */
+    .offering-card.deli:hover   { background: #fff5f5; }
+    .offering-card.extra:hover  { background: #f2faf6; }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; margin-bottom: 0.9rem;
+      border-radius: 2px;
+    }
+    .badge-deli   { background: var(--deli-red-bg);   color: var(--deli-red);   border: 1px solid rgba(184,50,50,0.3); }
+    .badge-gold   { background: var(--gold-dim);       color: var(--gold);       border: 1px solid rgba(201,153,42,0.3); }
+    .badge-green  { background: var(--deli-green-bg);  color: var(--deli-green); border: 1px solid rgba(46,125,79,0.3); }
+
+    .offering-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+    .offering-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;
+      color: var(--deli-red);
+    }
+    .offering-desc {
+      font-size: 0.82rem; font-weight: 300; line-height: 1.75;
+      color: var(--muted);
+    }
+    .offering-items {
+      list-style: none; margin-top: 0.85rem;
+      display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .offering-items li {
+      font-size: 0.76rem; color: var(--muted);
+      padding-left: 0.85rem; position: relative;
+    }
+    .offering-items li::before { content: '—'; position: absolute; left: 0; font-size: 0.65rem; }
+
+    /* ── HOURS ── */
+    #hours {
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+    .hours-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; max-width: 1080px; margin: 0 auto;
+    }
+    .hours-tabs {
+      display: flex; gap: 0; margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+    .hours-tab {
+      flex: 1; padding: 0.55rem 1rem;
+      font-size: 0.65rem; font-weight: 500;
       letter-spacing: 0.14em; text-transform: uppercase;
-      border: 1px solid rgba(0,0,0,0.15); cursor: pointer;
+      background: var(--white); border: none;
+      cursor: pointer; color: rgba(0,0,0,0.4);
+      border-right: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
     }
+    .hours-tab:last-child { border-right: none; }
+    .hours-tab.active { background: var(--gold); color: var(--black); font-weight: 600; }
+
+    .hours-panel { display: none; }
+    .hours-panel.active { display: block; }
+
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid var(--border); }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td { padding: 0.78rem 0; font-size: 0.87rem; }
+    .hours-table td:first-child { color: var(--muted); font-weight: 300; }
+    .hours-table td:last-child { text-align: right; }
+    .hours-table tr.today td { color: var(--gold); font-weight: 500; }
+    .hours-table tr.closed td { color: rgba(184,132,31,0.3); }
+
+    .map-placeholder {
+      background: var(--white); border: 1px solid var(--border);
+      height: 260px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem; margin-bottom: 1.5rem;
+      color: rgba(184,132,31,0.4);
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .map-icon { font-size: 1.8rem; opacity: 0.3; }
+
+    .address-block {
+      font-size: 0.9rem; font-weight: 300;
+      color: rgba(0,0,0,0.6); line-height: 2;
+    }
+    .address-block strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--black);
+      display: block; margin-bottom: 0.2rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; max-width: 1080px; margin: 0 auto; align-items: start;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 1.3rem; margin-top: 0.5rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-item-icon {
+      width: 36px; height: 36px;
+      background: var(--gold-dim); border: 1px solid rgba(201,153,42,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .contact-item-text { font-size: 0.88rem; font-weight: 300; color: rgba(0,0,0,0.6); line-height: 1.6; }
+    .contact-item-text strong {
+      display: block; font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.2rem;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 0.85rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-field label {
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-field input,
+    .form-field textarea {
+      background: var(--off-white); border: 1px solid rgba(0,0,0,0.1);
+      color: var(--black);
+      padding: 0.78rem 1rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.88rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s; resize: none;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus { border-color: var(--gold); }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: var(--gold);
+    }
+    .footer-note { font-size: 0.72rem; color: rgba(184,132,31,0.7); }
+    .footer-legal { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
+
+    /* ── AGE GATE ── */
 
     /* ── KEYFRAMES ── */
     @keyframes fadeUp {
@@ -527,40 +746,6 @@
 </head>
 <body>
 
-<!-- AGE GATE -->
-<div class="age-gate" id="ageGate">
-  <div class="age-gate-box">
-    <div class="ag-logo">Papa's Liquor & Deli</div>
-    <div class="ag-rule"></div>
-    <h2>Are you 21 or older?</h2>
-    <p>You must be of legal drinking age to enter this site.</p>
-    <div class="age-gate-btns">
-      <button class="btn-age" id="age-yes">Yes, I'm 21+</button>
-      <button id="age-no">No</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  (function() {
-    var gate = document.getElementById('ageGate');
-    if (!gate) return;
-    if (sessionStorage.getItem('ageVerified') === 'true') {
-      gate.style.display = 'none';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
-    document.getElementById('age-yes').addEventListener('click', function() {
-      sessionStorage.setItem('ageVerified', 'true');
-      gate.style.display = 'none';
-      document.body.style.overflow = '';
-    });
-    document.getElementById('age-no').addEventListener('click', function() {
-      gate.style.display = 'flex';
-      gate.innerHTML = '<div style="text-align:center;padding:2rem;max-width:400px;"><p style="font-size:1.4rem;font-weight:700;color:#b83232;margin-bottom:0.75rem;">Come back when you are ready.</p><p style="font-size:0.85rem;color:#888;">You must be 21 or older to visit this site.</p></div>';
-    });
-  })();
-</script>
 
 <!-- NAV -->
 <nav>
@@ -789,16 +974,6 @@ OCTYPE html>
     }
     .btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    .btn-age {
-      background: var(--gold); color: var(--black);
-      border: 1px solid var(--gold);
-      padding: 0.82rem 2rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      cursor: pointer; transition: opacity 0.2s;
-    }
-    .btn-age:hover { opacity: 0.85; }
 
     .btn-doordash {
       background: #ff3008; color: var(--white);
@@ -1087,16 +1262,6 @@ OCTYPE html>
     /* ── AGE GATE ── */
 
 
-    .ag-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--deli-red); margin-bottom: 2rem; }
-    .ag-rule { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); margin: 0 auto 2rem; }
-    .age-gate { position: fixed; inset: 0; background: var(--white); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 2rem; }
-    .age-gate-box { text-align: center; max-width: 400px; }
-    .age-gate-box h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--deli-red); margin-bottom: 0.6rem; }
-    .age-gate-box p { font-size: 0.85rem; font-weight: 300; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
-    .age-gate-btns { display: flex; gap: 0.75rem; justify-content: center; }
-    #age-no { background: transparent; color: rgba(0,0,0,0.4); padding: 0.82rem 1.8rem; font-family: 'Barlow', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid rgba(0,0,0,0.15); cursor: pointer; }
-    .btn-age { background: var(--gold); color: var(--black); border: 1px solid var(--gold); padding: 0.82rem 2rem; font-family: 'Barlow', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
-    .btn-age:hover { opacity: 0.85; }
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.6; } }
@@ -1115,19 +1280,6 @@ OCTYPE html>
 </head>
 <body>
 
-<!-- AGE GATE -->
-<div class="age-gate" id="ageGate">
-  <div class="age-gate-box">
-    <div class="ag-logo">Papa's Liquor & Deli</div>
-    <div class="ag-rule"></div>
-    <h2>Are you 21 or older?</h2>
-    <p>You must be of legal drinking age to enter this site.</p>
-    <div class="age-gate-btns">
-      <button class="btn-age" id="age-yes">Yes, I'm 21+</button>
-      <button id="age-no">No</button>
-    </div>
-  </div>
-</div>
 
 <!-- NAV -->
 <nav>
