@@ -9,12 +9,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:     #0a0a0a;
+      --black:     #3a2a1a;
       --white:     #ffffff;
       --off-white: #f4f1ec;
       --panel:     #f9f7f4;
-      --border:    rgba(0,0,0,0.09);
-      --muted:     rgba(0,0,0,0.45);
+      --border:    rgba(184,50,50,0.12);
+      --muted:     rgba(90,55,30,0.55);
       --gold:      #b8841f;
       --gold-dim:  rgba(184,132,31,0.1);
       --red:       #b83232;
@@ -77,7 +77,7 @@
     .page-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 900; line-height: 1; margin-bottom: 0.6rem;
+      font-weight: 900; line-height: 1; margin-bottom: 0.6rem; color: var(--deli-red);
     }
     .page-sub {
       font-size: 0.88rem; font-weight: 300; color: var(--muted);
@@ -94,7 +94,11 @@
       border: 1px solid var(--border);
       background: var(--white);
       color: var(--muted);
+      cursor: pointer; text-decoration: none;
+      font-family: 'Barlow', sans-serif;
+      transition: border-color 0.2s, color 0.2s;
     }
+    .meta-pill:hover { border-color: var(--deli-red); color: var(--deli-red); }
 
     /* ── STICKY SECTION NAV ── */
     .section-nav {
@@ -132,7 +136,7 @@
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700; line-height: 1.1;
+      font-weight: 700; line-height: 1.1; color: var(--deli-red);
     }
     .section-rule { width: 36px; height: 2px; background: var(--red); margin-top: 0.75rem; }
 
@@ -252,7 +256,7 @@
 
     .sandwich-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-weight: 700; color: var(--black);
+      font-size: 1.05rem; font-weight: 700; color: var(--deli-red);
       line-height: 1.2;
     }
     .sandwich-ingredients {
@@ -266,7 +270,7 @@
     }
     .sandwich-price {
       font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 700; color: var(--black);
+      font-size: 1.15rem; font-weight: 700; color: var(--gold);
     }
     .sandwich-badge {
       font-size: 0.58rem; font-weight: 600;
@@ -306,12 +310,12 @@
     .salad-icon { font-size: 1.6rem; }
     .salad-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1rem; font-weight: 700; color: var(--black);
+      font-size: 1rem; font-weight: 700; color: var(--deli-red);
     }
     .salad-desc { font-size: 0.8rem; font-weight: 300; color: var(--muted); line-height: 1.6; flex: 1; }
     .salad-price {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-weight: 700; color: var(--black);
+      font-size: 1.05rem; font-weight: 700; color: var(--gold);
       padding-top: 0.5rem; border-top: 1px solid var(--border);
     }
 
@@ -326,7 +330,7 @@
     .dessert-icon { font-size: 2.5rem; flex-shrink: 0; }
     .dessert-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem;
+      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--deli-red);
     }
     .dessert-desc { font-size: 0.82rem; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 0.5rem; }
     .dessert-price {
@@ -375,10 +379,10 @@
     <h1 class="page-title">Deli Menu</h1>
     <p class="page-sub">Made to order, every day. Breakfast 8:30 AM–12 PM · Lunch 11 AM–3 PM · Closed Sunday</p>
     <div class="header-meta">
-      <div class="meta-pill">🥖 Sandwiches & Subs</div>
-      <div class="meta-pill">🥗 Fresh Salads</div>
-      <div class="meta-pill">🍰 Dessert</div>
-      <div class="meta-pill">🍽 We Cater</div>
+      <button class="meta-pill" onclick="scrollToSection('signatures')">🥖 Sandwiches & Subs</button>
+      <button class="meta-pill" onclick="scrollToSection('salads')">🥗 Fresh Salads</button>
+      <button class="meta-pill" onclick="scrollToSection('dessert')">🍰 Dessert</button>
+      <a class="meta-pill" href="index.html#contact">🍽 We Cater</a>
     </div>
   </div>
 </div>
@@ -386,8 +390,7 @@
 <!-- SECTION NAV -->
 <div class="section-nav">
   <div class="section-nav-inner">
-    <button class="snav-btn active" onclick="scrollTo('special')">The Special</button>
-    <button class="snav-btn" onclick="scrollTo('signatures')">Signatures</button>
+<button class="snav-btn" onclick="scrollTo('signatures')">Signatures</button>
     <button class="snav-btn" onclick="scrollTo('salads')">Salads</button>
     <button class="snav-btn" onclick="scrollTo('dessert')">Dessert</button>
   </div>
@@ -395,39 +398,6 @@
 
 <!-- CONTENT -->
 <div class="content">
-
-  <!-- THE ULTIMATE SPECIAL -->
-  <div class="menu-section" id="special">
-    <div class="menu-section-header">
-      <p class="section-label">Daily Special</p>
-      <h2 class="section-title">The Ultimate Special</h2>
-      <div class="section-rule"></div>
-    </div>
-
-    <div class="special-banner">
-      <div class="special-price-badge">
-        <span>Only</span>
-        <span>$8.99</span>
-      </div>
-      <div class="special-info">
-        <div class="special-name">The Ultimate Special</div>
-        <div class="special-desc">
-          All served with Lettuce, Tomato, Onion, Mayo & Mustard. Includes a side.
-        </div>
-        <div class="addon-note">Add-ons available for $1.50 each: Bacon · Avocado · Cheese</div>
-      </div>
-      <div class="special-options">
-        <div class="special-option-group">
-          <div class="special-option-label">Choose Your Bread</div>
-          <div class="special-option-values">White · Whole Wheat · 8" Roll</div>
-        </div>
-        <div class="special-option-group">
-          <div class="special-option-label">Choose Your Protein</div>
-          <div class="special-option-values">Turkey · Ham · Roast Beef · Tuna</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- DELI SIGNATURES -->
   <div class="menu-section" id="signatures">
@@ -705,6 +675,15 @@
 </footer>
 
 <script>
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 110;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
   function scrollTo(id) {
     document.querySelectorAll('.snav-btn').forEach(b => b.classList.remove('active'));
     event.target.classList.add('active');
@@ -717,7 +696,7 @@
   }
 
   // Auto-highlight section nav on scroll
-  const sections = ['special','signatures','salads','dessert'];
+  const sections = ['signatures','salads','dessert'];
   window.addEventListener('scroll', () => {
     let current = 'special';
     sections.forEach(id => {
