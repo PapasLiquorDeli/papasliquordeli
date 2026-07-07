@@ -535,8 +535,8 @@
     <h2>Are you 21 or older?</h2>
     <p>You must be of legal drinking age to enter this site.</p>
     <div class="age-gate-btns">
-      <button class="btn-age" onclick="enterSite()">Yes, I'm 21+</button>
-      <button id="age-no" onclick="denyEntry()">No</button>
+      <button class="btn-age" id="age-yes">Yes, I'm 21+</button>
+      <button id="age-no">No</button>
     </div>
   </div>
 </div>
@@ -1102,8 +1102,8 @@ OCTYPE html>
     <h2>Are you 21 or older?</h2>
     <p>You must be of legal drinking age to enter this site.</p>
     <div class="age-gate-btns">
-      <button class="btn-age" onclick="enterSite()">Yes, I'm 21+</button>
-      <button id="age-no" onclick="denyEntry()">No</button>
+      <button class="btn-age" id="age-yes">Yes, I'm 21+</button>
+      <button id="age-no">No</button>
     </div>
   </div>
 </div>
@@ -1452,20 +1452,21 @@ OCTYPE html>
 
 <script>
   // Age gate
-  function enterSite() {
-    sessionStorage.setItem('ageVerified', 'true');
-    document.getElementById('ageGate').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  function denyEntry() {
-    document.getElementById('ageGate').innerHTML = '<div style="text-align:center;max-width:340px;"><p style="font-family:Playfair Display,serif;font-size:1.4rem;font-weight:700;color:#b83232;margin-bottom:0.75rem;">Come back when you\'re ready.</p><p style="font-size:0.82rem;font-weight:300;color:rgba(90,55,30,0.55);">You must be 21 or older to visit this site.</p></div>';
-  }
+  var ageGate = document.getElementById('ageGate');
   if (sessionStorage.getItem('ageVerified') === 'true') {
-    document.getElementById('ageGate').style.display = 'none';
+    ageGate.style.display = 'none';
     document.body.style.overflow = '';
   } else {
     document.body.style.overflow = 'hidden';
   }
+  document.getElementById('age-yes').addEventListener('click', function() {
+    sessionStorage.setItem('ageVerified', 'true');
+    ageGate.style.display = 'none';
+    document.body.style.overflow = '';
+  });
+  document.getElementById('age-no').addEventListener('click', function() {
+    ageGate.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="font-family:Playfair Display,serif;font-size:1.4rem;font-weight:700;color:#b83232;margin-bottom:0.75rem;">Come back when you are ready.</p><p style="font-size:0.82rem;color:rgba(90,55,30,0.55);">You must be 21 or older to visit this site.</p></div>';
+  });
 
   // Highlight today in hours
   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
