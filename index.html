@@ -542,7 +542,6 @@
 </div>
 
 <script>
-  // Age gate — runs immediately, no waiting for rest of page
   (function() {
     var gate = document.getElementById('ageGate');
     if (!gate) return;
@@ -557,7 +556,8 @@
       document.body.style.overflow = '';
     });
     document.getElementById('age-no').addEventListener('click', function() {
-      gate.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#b83232;margin-bottom:0.75rem;">Come back when you are ready.</p><p style="font-size:0.82rem;color:rgba(90,55,30,0.55);">You must be 21 or older to visit this site.</p></div>';
+      gate.style.display = 'flex';
+      gate.innerHTML = '<div style="text-align:center;padding:2rem;max-width:400px;"><p style="font-size:1.4rem;font-weight:700;color:#b83232;margin-bottom:0.75rem;">Come back when you are ready.</p><p style="font-size:0.85rem;color:#888;">You must be 21 or older to visit this site.</p></div>';
     });
   })();
 </script>
