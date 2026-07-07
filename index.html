@@ -254,7 +254,7 @@
     }
     .about-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; max-width: 1080px; margin: 0 auto; align-items: center;
+      gap: 5rem; max-width: 1080px; margin: 0 auto; align-items: start;
     }
     .about-text p {
       font-size: 0.92rem; font-weight: 300; line-height: 1.9;
@@ -550,6 +550,7 @@
     <li><a href="deli.html">Deli</a></li>
     <li><a href="#hours">Hours</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#social">Social</a></li>
   </ul>
 </nav>
 
@@ -580,8 +581,12 @@
       <p class="section-tag">About Us</p>
       <h2 class="section-title">A Poway staple, built on community.</h2>
       <div class="section-rule"></div>
-      <p>Papa's Liquor & Deli has been serving the Poway community with the same warmth and care since day one. Whether you're grabbing a sandwich for lunch, picking up a bottle for the weekend, or just stopping in to say hello — you're always welcome here.</p>
-      <p>We're a family-run shop that takes pride in knowing our regulars by name and making sure everyone who walks through our door leaves happy.</p>
+      <p>Papa's Liquor & Deli wasn't built on a business plan. It was built on something far more personal — a deep love for Poway and the people who call it home. We are lifelong locals. We grew up on these streets, went to school with your kids, cheered at the same Friday night games, and watched this community grow into everything it is today. This place is not just where we work. It is where we live, where we belong, and where we always intended to plant our roots for good.</p>
+      <p>When the opportunity came to open our own shop, we didn't hesitate. Not because it was the easy path — it never is — but because we knew exactly what kind of place Poway deserved. Not a chain. Not a franchise. A real neighborhood spot where you walk in and immediately feel like someone is glad you showed up. Because we are. Every single time.</p>
+      <p>We opened our doors in 2026 with one promise to this community: we will show up for you the same way you have always shown up for each other. That means knowing your name. That means remembering your usual order. That means staying open so you can grab what you need without making a trip across town. It means being the kind of place that actually gives a damn about the people coming through the door, not just the transaction.</p>
+      <p>The relationships we have built since opening mean more to us than anything else. The regulars who stop in every morning. The families picking up something for a Saturday gathering. The neighbors who just want to chat for a few minutes before heading home. Those moments are not small things to us. They are the entire point. They are why we do this.</p>
+      <p>The food we make in our deli is an extension of that same philosophy. Every sandwich is made fresh, made to order, and made with the kind of care you put into something when you know the person eating it. We are not cutting corners on your lunch. We are not rushing through your order. We take pride in what comes out of our kitchen because your experience here reflects who we are as a family and as members of this community.</p>
+      <p>Poway has given our family so much over the years. Papa's Liquor & Deli is our way of giving something back — one sandwich, one conversation, one familiar face at a time. We are just getting started, and we could not be more grateful to be doing this right here, for all of you.</p>
     </div>
     <div class="stat-grid">
       <div class="stat-card"><span class="stat-icon">🥪</span><div class="stat-label">Deli Made Fresh Daily</div></div>
@@ -795,10 +800,92 @@
   </div>
 </section>
 
+
+<!-- SOCIAL MEDIA -->
+<section id="social" style="background:var(--off-white);border-top:1px solid var(--border);padding:5rem 3rem;">
+  <div style="max-width:1080px;margin:0 auto;text-align:center;">
+    <p style="font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;">Follow Along</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--deli-red);margin-bottom:0.75rem;">Find Us Online</h2>
+    <div style="width:36px;height:2px;background:var(--gold);margin:0 auto 1.5rem;"></div>
+    <p style="font-size:0.88rem;font-weight:300;color:var(--muted);margin-bottom:3rem;max-width:420px;margin-left:auto;margin-right:auto;">Stay up to date with our latest specials, new items, and behind the scenes from the deli.</p>
+
+    <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/papasliquoranddeli" target="_blank"
+         style="display:flex;flex-direction:column;align-items:center;gap:1rem;
+                padding:2.5rem 3rem;background:var(--white);border:1px solid var(--border);
+                text-decoration:none;min-width:220px;flex:1;max-width:300px;
+                transition:border-color 0.2s,transform 0.2s;position:relative;overflow:hidden;"
+         onmouseover="this.style.borderColor='#E1306C';this.style.transform='translateY(-4px)'"
+         onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+        <div style="width:56px;height:56px;border-radius:14px;
+                    background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+                    display:flex;align-items:center;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"></circle>
+          </svg>
+        </div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deli-red);margin-bottom:0.3rem;">Instagram</div>
+          <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;color:var(--muted);">@papasliquoranddeli</div>
+        </div>
+        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;
+                    color:#E1306C;border:1px solid #E1306C;padding:0.35rem 0.9rem;">
+          Follow Us
+        </div>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@papasliquordeli" target="_blank"
+         style="display:flex;flex-direction:column;align-items:center;gap:1rem;
+                padding:2.5rem 3rem;background:var(--white);border:1px solid var(--border);
+                text-decoration:none;min-width:220px;flex:1;max-width:300px;
+                transition:border-color 0.2s,transform 0.2s;position:relative;overflow:hidden;"
+         onmouseover="this.style.borderColor='#010101';this.style.transform='translateY(-4px)'"
+         onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+        <div style="width:56px;height:56px;border-radius:14px;
+                    background:#010101;
+                    display:flex;align-items:center;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/>
+          </svg>
+        </div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deli-red);margin-bottom:0.3rem;">TikTok</div>
+          <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;color:var(--muted);">@papasliquordeli</div>
+        </div>
+        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;
+                    color:#010101;border:1px solid #010101;padding:0.35rem 0.9rem;">
+          Follow Us
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Papa's Liquor & Deli</div>
   <div class="footer-note">Poway, CA &nbsp;·&nbsp; Family Owned</div>
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="https://www.instagram.com/papasliquoranddeli" target="_blank"
+       style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.68rem;
+              letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;"
+       onmouseover="this.style.color='#E1306C'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+      Instagram
+    </a>
+    <span style="color:rgba(255,255,255,0.2);">·</span>
+    <a href="https://www.tiktok.com/@papasliquordeli" target="_blank"
+       style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.68rem;
+              letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;"
+       onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+      TikTok
+    </a>
+  </div>
   <div class="footer-legal">Must be 21+ to purchase alcohol. Drink responsibly.</div>
 </footer>
 
