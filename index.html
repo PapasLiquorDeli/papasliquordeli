@@ -1,1132 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Papa's Liquor & Deli — Poway, CA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Papa's Liquor & Deli is a family-owned neighborhood deli and liquor store in Poway, California, serving fresh sandwiches, salads, beer, wine, spirits, snacks, pickup, delivery, and catering.">
+  <title>Papa's Liquor & Deli | Poway, CA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:       #3a2a1a;
-      --off-black:   #fafaf7;
-      --panel:       #f4f1ec;
-      --border:      rgba(184,50,50,0.15);
-      --white:       #ffffff;
-      --off-white:   #f0ede8;
-      --muted:       rgba(90,55,30,0.55);
-      --gold:        #b8841f;
-      --gold-light:  #d4a030;
-      --gold-dim:    rgba(184,132,31,0.12);
-      --deli-red:    #b83232;
-      --deli-red-bg: rgba(184,50,50,0.08);
-      --deli-green:  #2e7d4f;
-      --deli-green-bg: rgba(46,125,79,0.08);
+      --brown: #3a2a1a;
+      --red: #b83232;
+      --gold: #b8841f;
+      --green: #2e7d4f;
+      --white: #ffffff;
+      --cream: #f4f1ec;
+      --panel: #faf8f5;
+      --muted: rgba(90, 55, 30, 0.66);
+      --border: rgba(184, 50, 50, 0.14);
+      --shadow: 0 18px 50px rgba(58, 42, 26, 0.10);
+      --nav-height: 72px;
     }
 
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Barlow', sans-serif;
-      background: var(--white);
-      color: var(--black);
-      overflow-x: hidden;
-    }
-
-    /* ── NOISE TEXTURE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.025;
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 3rem;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700;
-      letter-spacing: 0.03em;
-      color: var(--deli-red);
-    }
-    .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.7rem; font-weight: 500;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-
-    /* ── HERO ── */
-    #home {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 7rem 2rem 5rem;
-      position: relative; overflow: hidden;
-      background: var(--white);
-    }
-
-    /* diagonal stripe background */
-    .hero-stripes {
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        -55deg,
-        transparent, transparent 60px,
-        rgba(184,50,50,0.04) 60px, rgba(184,50,50,0.04) 61px
-      );
-      pointer-events: none;
-    }
-
-    /* gold glow blob */
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(184,132,31,0.1) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -55%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative; text-align: center; max-width: 820px;
-      display: flex; flex-direction: column; align-items: center;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 1.6rem;
-      animation: fadeUp 0.7s ease both;
-    }
-
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.8rem, 10vw, 8rem);
-      font-weight: 900; line-height: 0.93; letter-spacing: -0.02em;
-      color: var(--deli-red);
-      margin-bottom: 1.4rem;
-      animation: fadeUp 0.75s 0.08s ease both;
-    }
-    .hero-title .amp { color: var(--gold); font-style: italic; font-weight: 700; }
-
-    .hero-tagline {
-      font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase;
-      color: rgba(184,132,31,0.7); margin-bottom: 2.2rem;
-      animation: fadeUp 0.75s 0.14s ease both;
-    }
-
-    .hero-rule {
-      width: 1px; height: 48px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      margin: 0 auto 2.2rem;
-      animation: fadeUp 0.75s 0.18s ease both;
-    }
-
-    .hero-cta {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      animation: fadeUp 0.75s 0.22s ease both;
-    }
-    .hero-cta-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      width: 100%;
-    }
-
-    .catering-pill {
-      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-      border: 1px solid var(--deli-red);
-      color: var(--deli-red);
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      padding: 0.9rem 1rem;
-      width: 100%; max-width: 480px;
-      margin: 0 auto 0.75rem;
-    }
-
-    .btn-gold {
-      background: var(--deli-red); color: var(--white);
-      border: 1px solid var(--deli-red);
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      text-decoration: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; padding: 0.9rem 1rem;
-      text-align: center; white-space: nowrap;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
-
-
-    .btn-doordash {
-      background: #ff3008; color: var(--white);
-      border: 1px solid #ff3008;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      text-decoration: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; padding: 0.9rem 1rem;
-      text-align: center; white-space: nowrap;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .btn-doordash:hover { opacity: 0.88; transform: translateY(-2px); }
-
-    .btn-ghost {
-      background: var(--gold); color: var(--black);
-      border: 1px solid var(--gold);
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      text-decoration: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; padding: 0.9rem 1rem;
-      text-align: center; white-space: nowrap;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .btn-ghost:hover { opacity: 0.88; transform: translateY(-2px); }
-
-    .scroll-hint {
-      position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      opacity: 0.35; color: var(--black);
-    }
-    .scroll-hint span { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; }
-    .scroll-line {
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-
-    /* ── SHARED ── */
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 18px); }
+    body { font-family: 'Barlow', sans-serif; color: var(--brown); background: var(--white); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input, textarea { font: inherit; }
     section { padding: 6rem 3rem; }
-    .section-tag {
-      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; line-height: 1.1; margin-bottom: 1rem;
-      color: var(--deli-red);
-    }
-    .section-rule {
-      width: 40px; height: 1px;
-      background: var(--gold); margin-bottom: 2rem;
-    }
+    .container { width: min(1120px, 100%); margin: 0 auto; }
+    .skip-link { position: fixed; left: 1rem; top: -100px; z-index: 1000; background: var(--brown); color: white; padding: .8rem 1rem; text-decoration: none; }
+    .skip-link:focus { top: 1rem; }
 
-    /* ── ABOUT ── */
-    #about {
-      background: var(--off-white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .about-grid {
-      display: block;
-      max-width: 780px; margin: 0 auto;
-    }
-    .about-text p {
-      font-size: 0.92rem; font-weight: 300; line-height: 1.9;
-      color: var(--muted); margin-bottom: 1rem;
-    }
-    .stat-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-      background: var(--border);
-    }
-    .stat-card {
-      background: var(--white);
-      padding: 1.6rem 1.4rem; text-align: center;
-      border-left: 2px solid transparent;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .stat-card:hover { border-left-color: var(--gold); background: var(--panel); }
-    .stat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
-    .stat-label {
-      font-size: 0.68rem; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted);
-    }
+    .eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: .7rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.05; color: var(--red); margin-bottom: 1rem; }
+    .section-copy { max-width: 650px; font-size: .96rem; line-height: 1.8; color: var(--muted); }
+    .rule { width: 44px; height: 2px; background: var(--gold); margin: 0 0 2rem; }
 
-    /* ── MENU ── */
-    #menu { background: var(--white); }
-    .menu-inner { max-width: 1080px; margin: 0 auto; }
+    .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: .45rem; padding: .85rem 1.25rem; border: 1px solid transparent; text-decoration: none; font-size: .73rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; transition: transform .2s, opacity .2s, background .2s; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--red); color: white; border-color: var(--red); }
+    .btn-gold { background: var(--gold); color: var(--brown); border-color: var(--gold); }
+    .btn-outline { background: transparent; color: var(--red); border-color: var(--red); }
+    .btn-dark { background: var(--brown); color: white; border-color: var(--brown); }
 
-    /* deli banner */
-    .deli-banner {
-      display: flex; align-items: center; gap: 1.5rem;
-      padding: 1.2rem 1.8rem; margin-bottom: 2.5rem;
-      background: linear-gradient(135deg, var(--deli-red-bg), var(--deli-green-bg));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-left: 3px solid var(--deli-red);
-    }
-    .deli-banner-text { font-size: 0.82rem; font-weight: 300; color: rgba(0,0,0,0.6); }
-    .deli-banner-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--black);
-      margin-bottom: 0.2rem;
-    }
+    /* NAVIGATION */
+    .site-nav { position: fixed; inset: 0 0 auto; z-index: 300; height: var(--nav-height); display: flex; align-items: center; background: rgba(255,255,255,.96); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-inner { width: min(1180px, calc(100% - 3rem)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .brand { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; min-width: 0; }
+    .brand img { width: 50px; height: 50px; object-fit: contain; }
+    .brand-text { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--red); white-space: nowrap; }
+    .brand-text span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 1.7rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: .69rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links .nav-order { color: white; background: var(--red); padding: .65rem .9rem; }
+    .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--border); background: white; color: var(--brown); font-size: 1.25rem; cursor: pointer; }
 
-    .offerings-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .offering-card {
-      background: var(--white);
-      padding: 2rem 1.6rem;
-      position: relative; overflow: hidden;
-      transition: background 0.25s;
-      border: 1px solid rgba(0,0,0,0.06);
-    }
-    .offering-card::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px;
-      transition: width 0.3s ease;
-    }
-    .offering-card.deli::after   { background: var(--deli-red); }
-    .offering-card.liquor::after { background: var(--gold); }
-    .offering-card.extra::after  { background: var(--deli-green); }
-    .offering-card:hover { background: var(--off-white); }
-    .offering-card:hover::after { width: 100%; }
+    /* HERO */
+    .hero { min-height: 92vh; padding-top: calc(var(--nav-height) + 4rem); display: flex; align-items: center; background: linear-gradient(135deg, #fff 0%, #faf7f1 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, transparent, transparent 65px, rgba(184,50,50,.035) 65px, rgba(184,50,50,.035) 66px); }
+    .hero-grid { position: relative; display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+    .hero-logo { width: 104px; margin-bottom: 1.25rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5.8rem); line-height: .96; color: var(--red); margin-bottom: 1.25rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero-copy { max-width: 580px; font-size: 1.02rem; line-height: 1.75; color: var(--muted); margin-bottom: 1.8rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .hero-visual { position: relative; }
+    .hero-photo { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; border-radius: 50% 50% 10px 10px; box-shadow: var(--shadow); }
+    .hero-badge { position: absolute; left: -1.5rem; bottom: 2rem; width: 145px; height: 145px; border-radius: 50%; background: var(--brown); color: white; display: grid; place-content: center; text-align: center; padding: 1rem; border: 5px solid white; box-shadow: var(--shadow); }
+    .hero-badge strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--gold); margin-bottom: .2rem; }
+    .hero-badge span { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; line-height: 1.45; }
 
-    /* deli cards get subtle red tint on hover */
-    .offering-card.deli:hover   { background: #fff5f5; }
-    .offering-card.extra:hover  { background: #f2faf6; }
+    /* QUICK INFO */
+    .quick-info { padding: 0 3rem; background: var(--brown); color: white; }
+    .quick-grid { display: grid; grid-template-columns: 1.15fr repeat(3, 1fr); }
+    .quick-item { padding: 1.4rem 1.6rem; border-right: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; gap: .9rem; min-height: 105px; }
+    .quick-item:last-child { border-right: 0; }
+    .quick-icon { font-size: 1.35rem; }
+    .quick-label { font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.58); margin-bottom: .25rem; }
+    .quick-value { font-size: .88rem; font-weight: 600; line-height: 1.45; }
+    .status-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #9aa0a6; margin-right: .45rem; }
+    .status-dot.open { background: #55c77a; box-shadow: 0 0 0 4px rgba(85,199,122,.15); }
+    .status-dot.closed { background: #e56a6a; }
+    .quick-item a { text-decoration: none; }
+    .quick-item a:hover { color: var(--gold); }
 
-    .card-badge {
-      display: inline-block;
-      font-size: 0.58rem; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 0.2rem 0.6rem; margin-bottom: 0.9rem;
-      border-radius: 2px;
-    }
-    .badge-deli   { background: var(--deli-red-bg);   color: var(--deli-red);   border: 1px solid rgba(184,50,50,0.3); }
-    .badge-gold   { background: var(--gold-dim);       color: var(--gold);       border: 1px solid rgba(201,153,42,0.3); }
-    .badge-green  { background: var(--deli-green-bg);  color: var(--deli-green); border: 1px solid rgba(46,125,79,0.3); }
+    /* POPULAR ITEMS */
+    #popular { background: white; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2rem; }
+    .popular-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .food-card { background: white; border: 1px solid var(--border); overflow: hidden; transition: transform .25s, box-shadow .25s; }
+    .food-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .food-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .food-card-body { padding: 1.25rem; }
+    .food-card-top { display: flex; justify-content: space-between; gap: 1rem; align-items: start; margin-bottom: .5rem; }
+    .food-card h3 { font-family: 'Playfair Display', serif; color: var(--red); font-size: 1.15rem; }
+    .price { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.05rem; white-space: nowrap; }
+    .food-card p { font-size: .83rem; color: var(--muted); line-height: 1.65; }
 
-    .offering-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
-    .offering-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;
-      color: var(--deli-red);
-    }
-    .offering-desc {
-      font-size: 0.82rem; font-weight: 300; line-height: 1.75;
-      color: var(--muted);
-    }
-    .offering-items {
-      list-style: none; margin-top: 0.85rem;
-      display: flex; flex-direction: column; gap: 0.35rem;
-    }
-    .offering-items li {
-      font-size: 0.76rem; color: var(--muted);
-      padding-left: 0.85rem; position: relative;
-    }
-    .offering-items li::before { content: '—'; position: absolute; left: 0; font-size: 0.65rem; }
+    /* ORDER */
+    #order { background: var(--cream); border-block: 1px solid var(--border); }
+    .order-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 4rem; align-items: center; }
+    .primary-order-card { background: var(--red); color: white; padding: 2rem; box-shadow: var(--shadow); }
+    .primary-order-card h3 { font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: .6rem; }
+    .primary-order-card p { color: rgba(255,255,255,.78); line-height: 1.7; margin-bottom: 1.3rem; }
+    .order-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+    .order-link { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: 1rem; background: white; border: 1px solid var(--border); text-decoration: none; font-weight: 600; color: var(--brown); transition: border-color .2s, transform .2s; }
+    .order-link:hover { border-color: var(--gold); transform: translateY(-2px); }
 
-    /* ── HOURS ── */
-    #hours {
-      background: var(--off-white);
-      border-top: 1px solid var(--border);
-    }
-    .hours-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; max-width: 1080px; margin: 0 auto;
-    }
-    .hours-tabs {
-      display: flex; gap: 0; margin-bottom: 1.5rem;
-      border: 1px solid var(--border);
-    }
-    .hours-tab {
-      flex: 1; padding: 0.55rem 1rem;
-      font-size: 0.65rem; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      background: var(--white); border: none;
-      cursor: pointer; color: rgba(0,0,0,0.4);
-      border-right: 1px solid var(--border);
-      transition: background 0.2s, color 0.2s;
-    }
-    .hours-tab:last-child { border-right: none; }
-    .hours-tab.active { background: var(--gold); color: var(--black); font-weight: 600; }
+    /* OFFERINGS */
+    #offerings { background: white; }
+    .offer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .offer-card { background: white; padding: 2rem 1.5rem; }
+    .offer-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+    .offer-card h3 { font-family: 'Playfair Display', serif; color: var(--red); margin-bottom: .55rem; }
+    .offer-card p { font-size: .85rem; line-height: 1.7; color: var(--muted); }
 
+    /* CATERING */
+    #catering { padding: 4rem 3rem; background: var(--brown); color: white; }
+    .catering-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    .catering-inner h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: var(--gold); margin-bottom: .55rem; }
+    .catering-inner p { color: rgba(255,255,255,.7); line-height: 1.7; max-width: 720px; }
+    .catering-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+
+    /* STORY */
+    #about { background: var(--cream); }
+    .story-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 4rem; align-items: center; }
+    .story-image { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: transparent; }
+    .story-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1rem; }
+
+    /* REVIEWS */
+    #reviews { background: white; }
+    .review-panel { display: grid; grid-template-columns: 1.15fr .85fr; border: 1px solid var(--border); }
+    .review-copy { padding: 3rem; background: var(--panel); }
+    .review-copy blockquote { font-family: 'Playfair Display', serif; font-size: clamp(1.45rem, 3vw, 2.2rem); line-height: 1.35; color: var(--brown); margin-bottom: 1.4rem; }
+    .review-copy p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .review-actions { padding: 3rem; background: var(--red); color: white; display: flex; flex-direction: column; justify-content: center; }
+    .review-actions h3 { font-family: 'Playfair Display', serif; font-size: 1.65rem; margin-bottom: .7rem; }
+    .review-actions p { color: rgba(255,255,255,.75); line-height: 1.7; margin-bottom: 1.25rem; }
+
+    /* LOCATION */
+    #location { background: var(--cream); }
+    .location-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; }
+    .hours-card { background: white; border: 1px solid var(--border); padding: 2rem; }
+    .hours-card h3 { font-family: 'Playfair Display', serif; color: var(--red); margin-bottom: 1rem; }
+    .hours-tabs { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .hours-tab { border: 1px solid var(--border); background: white; color: var(--muted); padding: .55rem .8rem; font-size: .67rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+    .hours-tab.active { background: var(--red); color: white; border-color: var(--red); }
     .hours-panel { display: none; }
     .hours-panel.active { display: block; }
+    .hours-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .hours-table td { padding: .72rem .2rem; border-bottom: 1px solid var(--border); }
+    .hours-table td:last-child { text-align: right; font-weight: 600; }
+    .hours-table tr.today td { color: var(--red); font-weight: 700; }
+    .hours-table tr.closed td { opacity: .55; }
+    .map-card { min-height: 510px; border: 1px solid var(--border); background: white; overflow: hidden; display: flex; flex-direction: column; }
+    .map-card iframe { width: 100%; flex: 1; min-height: 360px; border: 0; }
+    .map-details { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem; }
+    .map-details strong { display: block; color: var(--red); margin-bottom: .25rem; }
+    .map-details p { color: var(--muted); line-height: 1.55; font-size: .85rem; }
 
-    .hours-table { width: 100%; border-collapse: collapse; }
-    .hours-table tr { border-bottom: 1px solid var(--border); }
-    .hours-table tr:last-child { border-bottom: none; }
-    .hours-table td { padding: 0.78rem 0; font-size: 0.87rem; }
-    .hours-table td:first-child { color: var(--muted); font-weight: 300; }
-    .hours-table td:last-child { text-align: right; }
-    .hours-table tr.today td { color: var(--gold); font-weight: 500; }
-    .hours-table tr.closed td { color: rgba(184,132,31,0.3); }
+    /* CONTACT */
+    #contact { background: white; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 4rem; }
+    .contact-list { display: grid; gap: .9rem; margin-top: 2rem; }
+    .contact-row { display: flex; gap: .8rem; align-items: start; color: var(--muted); line-height: 1.6; }
+    .contact-row strong { color: var(--brown); display: block; }
+    .contact-form { background: var(--panel); border: 1px solid var(--border); padding: 2rem; display: grid; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { display: grid; gap: .4rem; }
+    .field label { font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+    .field input, .field textarea { width: 100%; border: 1px solid var(--border); background: white; padding: .85rem; color: var(--brown); outline: none; }
+    .field input:focus, .field textarea:focus { border-color: var(--gold); }
+    .form-note { font-size: .75rem; color: var(--muted); line-height: 1.5; }
 
-    .map-placeholder {
-      background: var(--white); border: 1px solid var(--border);
-      height: 260px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.5rem; margin-bottom: 1.5rem;
-      color: rgba(184,132,31,0.4);
-      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
-    }
-    .map-icon { font-size: 1.8rem; opacity: 0.3; }
+    /* SOCIAL */
+    #social { background: var(--cream); text-align: center; }
+    .social-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+    .social-card { width: min(280px, 100%); padding: 1.5rem; background: white; border: 1px solid var(--border); text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .social-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .social-card .icon { font-size: 1.8rem; margin-bottom: .6rem; }
+    .social-card strong { font-family: 'Playfair Display', serif; display: block; color: var(--red); margin-bottom: .25rem; }
+    .social-card span { color: var(--muted); font-size: .8rem; }
 
-    .address-block {
-      font-size: 0.9rem; font-weight: 300;
-      color: rgba(0,0,0,0.6); line-height: 2;
-    }
-    .address-block strong {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--black);
-      display: block; margin-bottom: 0.2rem;
-    }
+    footer { padding: 2.2rem 3rem; background: #24180f; color: white; }
+    .footer-inner { width: min(1120px, 100%); margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; color: var(--gold); }
+    .footer-links { display: flex; gap: 1rem; justify-content: center; }
+    .footer-links a { text-decoration: none; color: rgba(255,255,255,.62); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+    .footer-legal { text-align: right; color: rgba(255,255,255,.42); font-size: .65rem; }
 
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-    }
-    .contact-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; max-width: 1080px; margin: 0 auto; align-items: start;
-    }
-    .contact-items { display: flex; flex-direction: column; gap: 1.3rem; margin-top: 0.5rem; }
-    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
-    .contact-item-icon {
-      width: 36px; height: 36px;
-      background: var(--gold-dim); border: 1px solid rgba(201,153,42,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem;
-    }
-    .contact-item-text { font-size: 0.88rem; font-weight: 300; color: rgba(0,0,0,0.6); line-height: 1.6; }
-    .contact-item-text strong {
-      display: block; font-size: 0.62rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.2rem;
-    }
-    .contact-form { display: flex; flex-direction: column; gap: 0.85rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
-    .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
-    .form-field label {
-      font-size: 0.62rem; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--muted);
-    }
-    .form-field input,
-    .form-field textarea {
-      background: var(--off-white); border: 1px solid rgba(0,0,0,0.1);
-      color: var(--black);
-      padding: 0.78rem 1rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.88rem; font-weight: 300;
-      outline: none; transition: border-color 0.2s; resize: none;
-    }
-    .form-field input:focus,
-    .form-field textarea:focus { border-color: var(--gold); }
-    .form-field input::placeholder,
-    .form-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .mobile-bar { display: none; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: #050505;
-      border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem; font-weight: 700; color: var(--gold);
-    }
-    .footer-note { font-size: 0.72rem; color: rgba(184,132,31,0.7); }
-    .footer-legal { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
-
-    /* ── AGE GATE ── */
-
-    .scroll-hint {
-      position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      opacity: 0.35; color: var(--black);
-    }
-    .scroll-hint span { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; }
-    .scroll-line {
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: pulse 2s ease-in-out infinite;
+    @media (max-width: 900px) {
+      section { padding: 4.5rem 1.5rem; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .nav-links { position: absolute; top: var(--nav-height); left: 0; right: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: .75rem 1.5rem 1.25rem; background: white; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: .9rem 0; }
+      .nav-links .nav-order { text-align: center; margin-top: .5rem; }
+      .hero { min-height: auto; padding: calc(var(--nav-height) + 3rem) 1.5rem 4rem; }
+      .hero-grid, .order-layout, .story-grid, .review-panel, .location-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-visual { order: -1; max-width: 620px; margin: 0 auto; }
+      .hero-badge { left: 1rem; bottom: 1rem; width: 120px; height: 120px; }
+      .quick-info { padding: 0; }
+      .quick-grid { grid-template-columns: 1fr 1fr; }
+      .quick-item:nth-child(2) { border-right: 0; }
+      .quick-item { border-bottom: 1px solid rgba(255,255,255,.12); }
+      .popular-grid, .offer-grid { grid-template-columns: repeat(2, 1fr); }
+      .catering-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-legal { text-align: center; }
     }
 
-
-    /* ── SHARED ── */
-    section { padding: 6rem 3rem; }
-    .section-tag {
-      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; line-height: 1.1; margin-bottom: 1rem;
-      color: var(--deli-red);
-    }
-    .section-rule {
-      width: 40px; height: 1px;
-      background: var(--gold); margin-bottom: 2rem;
-    }
-
-    /* ── ABOUT ── */
-    #about {
-      background: var(--off-white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .about-grid {
-      display: block;
-      max-width: 780px; margin: 0 auto;
-    }
-    .about-text p {
-      font-size: 0.92rem; font-weight: 300; line-height: 1.9;
-      color: var(--muted); margin-bottom: 1rem;
-    }
-    .stat-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-      background: var(--border);
-    }
-    .stat-card {
-      background: var(--white);
-      padding: 1.6rem 1.4rem; text-align: center;
-      border-left: 2px solid transparent;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .stat-card:hover { border-left-color: var(--gold); background: var(--panel); }
-    .stat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
-    .stat-label {
-      font-size: 0.68rem; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted);
+    @media (max-width: 620px) {
+      .nav-inner { width: calc(100% - 2rem); }
+      .brand-text { font-size: .9rem; }
+      .brand img { width: 42px; height: 42px; }
+      .hero h1 { font-size: clamp(2.7rem, 13vw, 4rem); }
+      .hero-actions, .catering-actions { flex-direction: column; align-items: stretch; }
+      .quick-grid, .popular-grid, .offer-grid, .order-links, .form-row { grid-template-columns: 1fr; }
+      .quick-item { border-right: 0; }
+      .section-head { align-items: start; flex-direction: column; }
+      .hero-badge { width: 105px; height: 105px; }
+      .hero-badge strong { font-size: 1rem; }
+      .hero-badge span { font-size: .55rem; }
+      .review-copy, .review-actions { padding: 2rem 1.4rem; }
+      .map-details { align-items: stretch; flex-direction: column; }
+      body { padding-bottom: 66px; }
+      .mobile-bar { position: fixed; z-index: 400; left: 0; right: 0; bottom: 0; height: 66px; display: grid; grid-template-columns: repeat(3, 1fr); background: white; border-top: 1px solid var(--border); box-shadow: 0 -8px 30px rgba(58,42,26,.08); }
+      .mobile-bar a { display: grid; place-content: center; text-align: center; text-decoration: none; color: var(--brown); font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      .mobile-bar a:nth-child(3) { background: var(--red); color: white; }
     }
 
-    /* ── MENU ── */
-    #menu { background: var(--white); }
-    .menu-inner { max-width: 1080px; margin: 0 auto; }
-
-    /* deli banner */
-    .deli-banner {
-      display: flex; align-items: center; gap: 1.5rem;
-      padding: 1.2rem 1.8rem; margin-bottom: 2.5rem;
-      background: linear-gradient(135deg, var(--deli-red-bg), var(--deli-green-bg));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-left: 3px solid var(--deli-red);
-    }
-    .deli-banner-text { font-size: 0.82rem; font-weight: 300; color: rgba(0,0,0,0.6); }
-    .deli-banner-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--black);
-      margin-bottom: 0.2rem;
-    }
-
-    .offerings-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .offering-card {
-      background: var(--white);
-      padding: 2rem 1.6rem;
-      position: relative; overflow: hidden;
-      transition: background 0.25s;
-      border: 1px solid rgba(0,0,0,0.06);
-    }
-    .offering-card::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px;
-      transition: width 0.3s ease;
-    }
-    .offering-card.deli::after   { background: var(--deli-red); }
-    .offering-card.liquor::after { background: var(--gold); }
-    .offering-card.extra::after  { background: var(--deli-green); }
-    .offering-card:hover { background: var(--off-white); }
-    .offering-card:hover::after { width: 100%; }
-
-    /* deli cards get subtle red tint on hover */
-    .offering-card.deli:hover   { background: #fff5f5; }
-    .offering-card.extra:hover  { background: #f2faf6; }
-
-    .card-badge {
-      display: inline-block;
-      font-size: 0.58rem; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 0.2rem 0.6rem; margin-bottom: 0.9rem;
-      border-radius: 2px;
-    }
-    .badge-deli   { background: var(--deli-red-bg);   color: var(--deli-red);   border: 1px solid rgba(184,50,50,0.3); }
-    .badge-gold   { background: var(--gold-dim);       color: var(--gold);       border: 1px solid rgba(201,153,42,0.3); }
-    .badge-green  { background: var(--deli-green-bg);  color: var(--deli-green); border: 1px solid rgba(46,125,79,0.3); }
-
-    .offering-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
-    .offering-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;
-      color: var(--deli-red);
-    }
-    .offering-desc {
-      font-size: 0.82rem; font-weight: 300; line-height: 1.75;
-      color: var(--muted);
-    }
-    .offering-items {
-      list-style: none; margin-top: 0.85rem;
-      display: flex; flex-direction: column; gap: 0.35rem;
-    }
-    .offering-items li {
-      font-size: 0.76rem; color: var(--muted);
-      padding-left: 0.85rem; position: relative;
-    }
-    .offering-items li::before { content: '—'; position: absolute; left: 0; font-size: 0.65rem; }
-
-    /* ── HOURS ── */
-    #hours {
-      background: var(--off-white);
-      border-top: 1px solid var(--border);
-    }
-    .hours-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; max-width: 1080px; margin: 0 auto;
-    }
-    .hours-tabs {
-      display: flex; gap: 0; margin-bottom: 1.5rem;
-      border: 1px solid var(--border);
-    }
-    .hours-tab {
-      flex: 1; padding: 0.55rem 1rem;
-      font-size: 0.65rem; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      background: var(--white); border: none;
-      cursor: pointer; color: rgba(0,0,0,0.4);
-      border-right: 1px solid var(--border);
-      transition: background 0.2s, color 0.2s;
-    }
-    .hours-tab:last-child { border-right: none; }
-    .hours-tab.active { background: var(--gold); color: var(--black); font-weight: 600; }
-
-    .hours-panel { display: none; }
-    .hours-panel.active { display: block; }
-
-    .hours-table { width: 100%; border-collapse: collapse; }
-    .hours-table tr { border-bottom: 1px solid var(--border); }
-    .hours-table tr:last-child { border-bottom: none; }
-    .hours-table td { padding: 0.78rem 0; font-size: 0.87rem; }
-    .hours-table td:first-child { color: var(--muted); font-weight: 300; }
-    .hours-table td:last-child { text-align: right; }
-    .hours-table tr.today td { color: var(--gold); font-weight: 500; }
-    .hours-table tr.closed td { color: rgba(184,132,31,0.3); }
-
-    .map-placeholder {
-      background: var(--white); border: 1px solid var(--border);
-      height: 260px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.5rem; margin-bottom: 1.5rem;
-      color: rgba(184,132,31,0.4);
-      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
-    }
-    .map-icon { font-size: 1.8rem; opacity: 0.3; }
-
-    .address-block {
-      font-size: 0.9rem; font-weight: 300;
-      color: rgba(0,0,0,0.6); line-height: 2;
-    }
-    .address-block strong {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--black);
-      display: block; margin-bottom: 0.2rem;
-    }
-
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-    }
-    .contact-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; max-width: 1080px; margin: 0 auto; align-items: start;
-    }
-    .contact-items { display: flex; flex-direction: column; gap: 1.3rem; margin-top: 0.5rem; }
-    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
-    .contact-item-icon {
-      width: 36px; height: 36px;
-      background: var(--gold-dim); border: 1px solid rgba(201,153,42,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem;
-    }
-    .contact-item-text { font-size: 0.88rem; font-weight: 300; color: rgba(0,0,0,0.6); line-height: 1.6; }
-    .contact-item-text strong {
-      display: block; font-size: 0.62rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.2rem;
-    }
-    .contact-form { display: flex; flex-direction: column; gap: 0.85rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
-    .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
-    .form-field label {
-      font-size: 0.62rem; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--muted);
-    }
-    .form-field input,
-    .form-field textarea {
-      background: var(--off-white); border: 1px solid rgba(0,0,0,0.1);
-      color: var(--black);
-      padding: 0.78rem 1rem;
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.88rem; font-weight: 300;
-      outline: none; transition: border-color 0.2s; resize: none;
-    }
-    .form-field input:focus,
-    .form-field textarea:focus { border-color: var(--gold); }
-    .form-field input::placeholder,
-    .form-field textarea::placeholder { color: rgba(255,255,255,0.2); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #050505;
-      border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem; font-weight: 700; color: var(--gold);
-    }
-    .footer-note { font-size: 0.72rem; color: rgba(184,132,31,0.7); }
-    .footer-legal { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
-
-    /* ── AGE GATE ── */
-
-    /* ── KEYFRAMES ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.25; }
-      50%       { opacity: 0.6; }
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      section { padding: 4rem 1.5rem; }
-      .about-grid, .hours-grid, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .offerings-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Papa's <span>Liquor & Deli</span></div>
-  <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="deli.html">Deli</a></li>
-    <li><a href="#hours">Hours</a></li>
-    <li><a href="#order">Order</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#social">Social</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="home">
-  <div class="hero-stripes"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Poway, California &nbsp;·&nbsp; Family Owned</div>
-    <h1 class="hero-title">Papa's<br><span class="amp">Liquor &</span><br>Deli</h1>
-    <p class="hero-tagline">Fresh &nbsp;·&nbsp; Tasty &nbsp;·&nbsp; Made With Love</p>
-    <div class="hero-rule"></div>
-    <div class="catering-pill">🍽 We Cater</div>
-    <div class="hero-cta">
-      <div class="hero-cta-row">
-        <a href="deli.html" class="btn-gold">Deli Menu</a>
-        <a href="menu.html" class="btn-ghost">Liquor Menu</a>
-      </div>
-      <a href="#order" class="btn-doordash">Order Online</a>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Papa's Liquor and Deli home">
+        <img src="PapasLogo-Gold.png" alt="" width="50" height="50">
+        <span class="brand-text">Papa's <span>Liquor & Deli</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#popular">Deli Favorites</a></li>
+        <li><a href="deli.html">Full Deli Menu</a></li>
+        <li><a href="menu.html">Drinks & Inventory</a></li>
+        <li><a href="#catering">Catering</a></li>
+        <li><a href="#location">Visit Us</a></li>
+        <li><a class="nav-order" href="#order">Order Online</a></li>
+      </ul>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-text">
-      <p class="section-tag">About Us</p>
-      <h2 class="section-title">A Poway staple, built on community.</h2>
-      <div class="section-rule"></div>
-      <p>Papa's Liquor & Deli wasn't built on a business plan. It was built on something far more personal — a deep love for Poway and the people who call it home. We are lifelong locals. We grew up on these streets, went to school with your kids, cheered at the same Friday night games, and watched this community grow into everything it is today. This place is not just where we work. It is where we live, where we belong, and where we always intended to plant our roots for good.</p>
-      <p>When the opportunity came to open our own shop, we didn't hesitate. Not because it was the easy path — it never is — but because we knew exactly what kind of place Poway deserved. Not a chain. Not a franchise. A real neighborhood spot where you walk in and immediately feel like someone is glad you showed up. Because we are. Every single time.</p>
-      <p>We opened our doors in 2026 with one promise to this community: we will show up for you the same way you have always shown up for each other. That means knowing your name. That means remembering your usual order. That means staying open so you can grab what you need without making a trip across town. It means being the kind of place that actually gives a damn about the people coming through the door, not just the transaction.</p>
-      <p>The relationships we have built since opening mean more to us than anything else. The regulars who stop in every morning. The families picking up something for a Saturday gathering. The neighbors who just want to chat for a few minutes before heading home. Those moments are not small things to us. They are the entire point. They are why we do this.</p>
-      <p>The food we make in our deli is an extension of that same philosophy. Every sandwich is made fresh, made to order, and made with the kind of care you put into something when you know the person eating it. We are not cutting corners on your lunch. We are not rushing through your order. We take pride in what comes out of our kitchen because your experience here reflects who we are as a family and as members of this community.</p>
-      <p>Poway has given our family so much over the years. Papa's Liquor & Deli is our way of giving something back — one sandwich, one conversation, one familiar face at a time. We are just getting started, and we could not be more grateful to be doing this right here, for all of you.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- SLIDESHOW -->
-<section style="background:#1a0f0a;padding:3rem 0 0;">
-  <div style="text-align:center;padding:0 2rem 1.2rem;">
-    <p style="font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:#b8841f;margin-bottom:0.4rem;">FRESH · MADE TO ORDER</p>
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:#ffffff;margin:0;">From Our Deli</h2>
-  </div>
-  <div style="max-width:900px;margin:0 auto;padding:0 2rem;">
-    <div id="slWrap" style="position:relative;width:100%;padding-top:75%;overflow:hidden;background:#1a0f0a;">
-      <div id="sl0" style="display:block;position:absolute;inset:0;background:#1a0f0a;"><img src="97b7b0c2-6c4a-4882-b2c3-12bc80a84aa2-retina-large_jpg.webp" alt="Papas Loaded" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Papas Loaded</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$17.00</span></div></div>
-      <div id="sl1" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="3b3a3c56-5362-4df3-a36c-f55894da2cc3-retina-large_jpg.webp" alt="Italiano Torpedo" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Italiano Torpedo</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$16.00</span></div></div>
-      <div id="sl2" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="4211d9d7-d3a8-4c72-997b-81c663a89d85-retina-large_jpg.webp" alt="Papas Beef Cheese Steak" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Papas Beef Cheese Steak</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$17.00</span></div></div>
-      <div id="sl3" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="87cc5984-970f-4829-bb23-161c6e5261fd-retina-large_jpg.webp" alt="Mamas Chicken Cheese Steak" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Mamas Chicken Cheese Steak</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$16.00</span></div></div>
-      <div id="sl4" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="4870681d-132a-48fd-8557-d21e9b9591b5-retina-large_jpg.webp" alt="Meatball" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Meatball</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$14.00</span></div></div>
-      <div id="sl5" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="53fafa23-547f-41a8-9d44-2c3aa108355a-retina-large_jpg.webp" alt="Hot Pastrami" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Hot Pastrami</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$14.00</span></div></div>
-      <div id="sl6" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="1792479f-ba06-4b79-b6e2-c9783cc0971a-retina-large_jpg.webp" alt="BLT" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">BLT</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$14.00</span></div></div>
-      <div id="sl7" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="41ac724e-c39e-4abb-aa50-c194131c2a72-retina-large_jpg.webp" alt="Chicken Bacon Chipotle" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Chicken Bacon Chipotle</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$16.00</span></div></div>
-      <div id="sl8" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="3fd7710d-6b50-4976-ae2e-cf3a24712e74-retina-large_jpg.webp" alt="Grilled Chicken Pesto" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Grilled Chicken Pesto</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$16.00</span></div></div>
-      <div id="sl9" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="2f490d70-07cd-4e0b-91b3-160964ca892e-retina-large_jpg.webp" alt="Tuna Melt" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Tuna Melt</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$13.00</span></div></div>
-      <div id="sl10" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="9f625b0c-94a7-4d8c-b588-c4f8b7a57d97-retina-large_jpg.webp" alt="Avocado Toast" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Avocado Toast</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$14.00</span></div></div>
-      <div id="sl11" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="456fea51-4020-4d9a-b399-79cf665a444f-retina-large_jpg.webp" alt="Buffalo Chicken Ranch" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Buffalo Chicken Ranch</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$14.00</span></div></div>
-      <div id="sl12" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="7d568342-8031-4793-a455-7b68939714ba-retina-large_jpg.webp" alt="Grilled Chicken or Turkey Club" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Grilled Chicken or Turkey Club</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$16.00</span></div></div>
-      <div id="sl13" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="03DA9471-43B0-4042-95ED-64815B4607F6.PNG" alt="Greek Salad" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Greek Salad</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$9.99</span></div></div>
-      <div id="sl14" style="display:none;position:absolute;inset:0;background:#1a0f0a;"><img src="4C466639-A2A6-4802-AC41-5ED2EDD21DBE.PNG" alt="Caesar Salad" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:2rem 2rem 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;"><span style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.5rem);font-weight:700;color:#fff;">Caesar Salad</span><span style="font-family:'Playfair Display',serif;font-size:clamp(0.95rem,1.8vw,1.25rem);font-weight:700;color:#b8841f;">$9.99</span></div></div>
-      <button onclick="slChange(-1)" style="position:absolute;top:50%;left:0.5rem;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:1px solid rgba(255,255,255,0.2);width:40px;height:40px;font-size:1rem;cursor:pointer;z-index:10;">&#8592;</button>
-      <button onclick="slChange(1)" style="position:absolute;top:50%;right:0.5rem;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:1px solid rgba(255,255,255,0.2);width:40px;height:40px;font-size:1rem;cursor:pointer;z-index:10;">&#8594;</button>
-      <div style="position:absolute;bottom:0.8rem;left:50%;transform:translateX(-50%);display:flex;gap:0.4rem;z-index:10;">
-      <button id="dot0" onclick="slGo(0)" style="width:8px;height:8px;border-radius:50%;background:#b8841f;border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot1" onclick="slGo(1)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot2" onclick="slGo(2)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot3" onclick="slGo(3)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot4" onclick="slGo(4)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot5" onclick="slGo(5)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot6" onclick="slGo(6)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot7" onclick="slGo(7)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot8" onclick="slGo(8)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot9" onclick="slGo(9)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot10" onclick="slGo(10)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot11" onclick="slGo(11)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot12" onclick="slGo(12)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot13" onclick="slGo(13)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      <button id="dot14" onclick="slGo(14)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;"></button>
-      </div>
-    </div>
-  </div>
-  <div style="text-align:center;padding:1.2rem 2rem 2.5rem;">
-    <a href="deli.html" style="font-size:0.7rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#b8841f;text-decoration:none;border-bottom:1px solid #b8841f;padding-bottom:2px;">View Full Deli Menu →</a>
-  </div>
-</section>
-
-
-<!-- MENU -->
-<section id="menu">
-  <div class="menu-inner">
-    <div style="margin-bottom:2.5rem;">
-      <p class="section-tag">What We Offer</p>
-      <h2 class="section-title">Something for everyone.</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="deli-banner">
-      <div>
-        <div class="deli-banner-title">🥖 Fresh Deli — Made to Order</div>
-        <div class="deli-banner-text">Breakfast served 8 AM – 11 AM &nbsp;·&nbsp; Lunch served 11 AM – 3 PM &nbsp;·&nbsp; Closed Sunday</div>
-      </div>
-    </div>
-    <div class="offerings-grid">
-      <div class="offering-card deli">
-        <span class="card-badge badge-deli">Deli</span>
-        <span class="offering-icon">🥖</span>
-        <h3 class="offering-title"><a href="deli.html" style="color:inherit;text-decoration:none;">Sandwiches</a></h3>
-        <p class="offering-desc">Made fresh to order every day. Classic subs, specialty builds, and breakfast options.</p>
-        <ul class="offering-items"><li>Roast Beef & Turkey</li><li>Italian Sub</li><li>Breakfast Sandwiches</li><li>Custom orders welcome</li></ul>
-      </div>
-      <div class="offering-card liquor">
-        <span class="card-badge badge-gold">Spirits</span>
-        <span class="offering-icon">🥃</span>
-        <h3 class="offering-title">Liquor & Spirits</h3>
-        <p class="offering-desc">Top-shelf to everyday favorites at every price point.</p>
-        <ul class="offering-items"><li>Tequila & Mezcal</li><li>Whiskey & Bourbon</li><li>Vodka & Gin</li><li>Rum & Brandy</li></ul>
-      </div>
-      <div class="offering-card liquor">
-        <span class="card-badge badge-gold">Beer</span>
-        <span class="offering-icon">🍺</span>
-        <h3 class="offering-title">Beer</h3>
-        <p class="offering-desc">Domestic staples and craft options. Cold and ready to grab.</p>
-        <ul class="offering-items"><li>Domestic 6-packs & 12-packs</li><li>Craft & Import selections</li><li>Singles & 40s</li></ul>
-      </div>
-      <div class="offering-card liquor">
-        <span class="card-badge badge-gold">Wine</span>
-        <span class="offering-icon">🍷</span>
-        <h3 class="offering-title">Wine</h3>
-        <p class="offering-desc">Reds, whites, and rosés from around the world.</p>
-        <ul class="offering-items"><li>California Wines</li><li>International Selections</li><li>Sparkling & Rosé</li></ul>
-      </div>
-      <div class="offering-card deli">
-        <span class="card-badge badge-deli">Deli</span>
-        <span class="offering-icon">🧃</span>
-        <h3 class="offering-title">Drinks & Snacks</h3>
-        <p class="offering-desc">Mixers, sodas, juices, chips — everything to round out your order.</p>
-        <ul class="offering-items"><li>Sodas & Sparkling Water</li><li>Energy Drinks</li><li>Chips & Snacks</li></ul>
-      </div>
-      <div class="offering-card extra">
-        <span class="card-badge badge-green">Catering</span>
-        <span class="offering-icon">🎁</span>
-        <h3 class="offering-title">Catering & Special Orders</h3>
-        <p class="offering-desc">We cater! Ask us about events large and small or hard-to-find special orders.</p>
-        <ul class="offering-items"><li>Event catering available</li><li>Gift-ready selections</li><li>Special order assistance</li></ul>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:2.5rem;">
-      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.06em;">Browse our complete selection of 2,500+ products</p>
-      <a href="menu.html" style="display:inline-block;text-decoration:none;background:var(--gold);color:var(--black);padding:0.82rem 2rem;font-family:'Barlow',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--gold);">Browse Full Inventory →</a>
-    </div>
-  </div>
-</section>
-
-<!-- HOURS & LOCATION -->
-<section id="hours">
-  <div class="hours-grid">
-    <div>
-      <p class="section-tag">Store Hours</p>
-      <h2 class="section-title">Come see us.</h2>
-      <div class="section-rule"></div>
-      <div class="hours-tabs">
-        <button class="hours-tab active" onclick="showTab('store', this)">Store</button>
-        <button class="hours-tab" onclick="showTab('breakfast', this)">Breakfast</button>
-        <button class="hours-tab" onclick="showTab('lunch', this)">Lunch</button>
-      </div>
-      <div class="hours-panel active" id="tab-store">
-        <table class="hours-table">
-          <tr><td>Monday</td><td>8 AM – 9 PM</td></tr>
-          <tr><td>Tuesday</td><td>8 AM – 9 PM</td></tr>
-          <tr><td>Wednesday</td><td>8 AM – 9 PM</td></tr>
-          <tr><td>Thursday</td><td>8 AM – 9 PM</td></tr>
-          <tr><td>Friday</td><td>8 AM – 9 PM</td></tr>
-          <tr><td>Saturday</td><td>8 AM – 9 PM</td></tr>
-          <tr><td>Sunday</td><td>8:30 AM – 8:30 PM</td></tr>
-        </table>
-      </div>
-      <div class="hours-panel" id="tab-breakfast">
-        <table class="hours-table">
-          <tr><td>Monday</td><td>8 AM – 11 AM</td></tr>
-          <tr><td>Tuesday</td><td>8 AM – 11 AM</td></tr>
-          <tr><td>Wednesday</td><td>8 AM – 11 AM</td></tr>
-          <tr><td>Thursday</td><td>8 AM – 11 AM</td></tr>
-          <tr><td>Friday</td><td>8 AM – 11 AM</td></tr>
-          <tr><td>Saturday</td><td>8 AM – 11 AM</td></tr>
-          <tr class="closed"><td>Sunday</td><td>Closed</td></tr>
-        </table>
-      </div>
-      <div class="hours-panel" id="tab-lunch">
-        <table class="hours-table">
-          <tr><td>Monday</td><td>11 AM – 3 PM</td></tr>
-          <tr><td>Tuesday</td><td>11 AM – 3 PM</td></tr>
-          <tr><td>Wednesday</td><td>11 AM – 3 PM</td></tr>
-          <tr><td>Thursday</td><td>11 AM – 3 PM</td></tr>
-          <tr><td>Friday</td><td>11 AM – 3 PM</td></tr>
-          <tr><td>Saturday</td><td>11 AM – 3 PM</td></tr>
-          <tr class="closed"><td>Sunday</td><td>Closed</td></tr>
-        </table>
-      </div>
-    </div>
-    <div>
-      <p class="section-tag">Location</p>
-      <h2 class="section-title">Find us in Poway.</h2>
-      <div class="section-rule"></div>
-      <div style="width:100%;height:260px;overflow:hidden;border:1px solid var(--border);">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1673.914799917815!2d-117.05525462293721!3d32.955508000952626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbfbef6f2df0a9%3A0x5500316fe0590f7d!2sPapa&#39;s%20Liquor%20%26%20Deli!5e0!3m2!1sen!2sus!4v1783394492106!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      </div>
-      <div class="address-block">
-        <strong>Papa's Liquor & Deli</strong>
-        <a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" style="color:inherit;text-decoration:none;">12759 Poway Rd #1<br>
-        Poway, CA 92064</a><br><br>
-        📞 <a href="tel:+18588421111" style="color:inherit;text-decoration:none;">(858) 842-1111</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div>
-      <p class="section-tag">Get In Touch</p>
-      <h2 class="section-title">We'd love to hear from you.</h2>
-      <div class="section-rule"></div>
-      <p style="font-size:0.88rem;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:2rem;">Questions, catering inquiries, or just want to say hi — reach out and we'll get back to you soon.</p>
-      <div class="contact-items">
-        <div class="contact-item"><div class="contact-item-icon">📍</div><div class="contact-item-text"><strong>Address</strong><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" style="color:inherit;text-decoration:none;">12759 Poway Rd #1, Poway, CA 92064</a></div></div>
-        <div class="contact-item"><div class="contact-item-icon">📞</div><div class="contact-item-text"><strong>Phone</strong><a href="tel:+18588421111" style="color:inherit;text-decoration:none;">(858) 842-1111</a></div></div>
-        <div class="contact-item"><div class="contact-item-icon">🕐</div><div class="contact-item-text"><strong>Hours</strong>Open Daily · 8 AM – 9 PM</div></div>
-        <div class="contact-item">
-          <div class="contact-item-icon">⭐</div>
-          <div class="contact-item-text">
-            <strong>Google Reviews</strong>
-            Enjoying Papa's? Leave us a review — it means the world to us.<br><br>
-            <a href="https://www.google.com/maps/place/Papa's+Liquor+%26+Deli/@32.9555106,-117.0567425,17z" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:#4285f4;color:#ffffff;padding:0.6rem 1.2rem;font-family:'Barlow',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;margin-top:0.25rem;">★ Leave a Google Review</a>
+  <main id="main">
+    <!-- 1. FOOD-FOCUSED HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <img class="hero-logo" src="PapasLogo-Gold.png" alt="Papa's Liquor and Deli logo" width="104" height="104">
+          <p class="eyebrow">Poway, California · Family Owned</p>
+          <h1>Poway's neighborhood <span>deli & market.</span></h1>
+          <p class="hero-copy">Fresh sandwiches made to order, salads, beer, wine, spirits, snacks, and everyday essentials, all served with genuine neighborhood hospitality.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#order">Order Food</a>
+            <a class="btn btn-gold" href="deli.html">View Deli Menu</a>
+            <a class="btn btn-outline" href="tel:+18588421111">Call the Store</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="PapasLoaded.jpg.webp" alt="Papa's Loaded deli sandwich" width="1000" height="750">
+          <div class="hero-badge" aria-label="Fresh, tasty, made with love">
+            <div><strong>Fresh.</strong><span>Tasty · Made with love</span></div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="contact-form">
-      <div class="form-row">
-        <div class="form-field"><label>First Name</label><input type="text" placeholder="John" /></div>
-        <div class="form-field"><label>Last Name</label><input type="text" placeholder="Smith" /></div>
+    </section>
+
+    <!-- 2. OPEN STATUS, HOURS, PHONE, DIRECTIONS -->
+    <div class="quick-info" aria-label="Store information">
+      <div class="container quick-grid">
+        <div class="quick-item">
+          <div class="quick-icon">●</div>
+          <div><div class="quick-label">Current Status</div><div class="quick-value" id="openStatus"><span class="status-dot"></span>Checking today's hours…</div></div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">🕐</div>
+          <div><div class="quick-label">Today's Hours</div><div class="quick-value" id="todayHours">Store hours loading…</div></div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">📞</div>
+          <div><div class="quick-label">Call Us</div><div class="quick-value"><a href="tel:+18588421111">(858) 842-1111</a></div></div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">📍</div>
+          <div><div class="quick-label">Directions</div><div class="quick-value"><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">12759 Poway Rd #1<br>Poway, CA 92064</a></div></div>
+        </div>
       </div>
-      <div class="form-field"><label>Email</label><input type="email" placeholder="you@email.com" /></div>
-      <div class="form-field"><label>Message</label><textarea rows="5" placeholder="Ask us anything..."></textarea></div>
-      <button style="align-self:flex-start;background:var(--gold);color:var(--black);padding:0.82rem 2rem;font-family:'Barlow',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer;">Send Message</button>
     </div>
-  </div>
-</section>
 
-<!-- ORDER ONLINE -->
-<section id="order" style="background:var(--off-white);border-top:1px solid var(--border);padding:5rem 3rem;">
-  <div style="max-width:1080px;margin:0 auto;">
-    <p style="font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;">Delivery & Pickup</p>
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--deli-red);margin-bottom:0.75rem;">Order Online</h2>
-    <div style="width:36px;height:2px;background:var(--gold);margin-bottom:1rem;"></div>
-    <p style="font-size:0.88rem;font-weight:300;color:var(--muted);margin-bottom:3rem;max-width:480px;">Get Papa's delivered to your door or ready for pickup through any of our ordering platforms.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;" id="orderGrid">
-      <a href="https://www.doordash.com/store/papa's-liquor-&-deli-poway-44143969/108683146/" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:0.9rem;text-align:center;padding:2rem 1.4rem;background:#ffffff;border:1px solid rgba(184,50,50,0.12);text-decoration:none;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.borderColor='#ff3008';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(184,50,50,0.12)';this.style.transform='translateY(0)'">
-        <div style="width:60px;height:60px;border-radius:14px;background:#ff300822;border:1px solid #ff300844;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🛵</div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#b83232;margin-bottom:0.2rem;">DoorDash</div><div style="font-size:0.72rem;font-weight:300;color:rgba(90,55,30,0.55);">Delivery & Pickup</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:#ff3008;padding:0.5rem 0;width:100%;text-align:center;">Order →</div>
-      </a>
-      <a href="https://www.ubereats.com/store/papas-liquor-%26-deli-poway/elYa-N34ULOmOhLxpWAcJw" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:0.9rem;text-align:center;padding:2rem 1.4rem;background:#ffffff;border:1px solid rgba(184,50,50,0.12);text-decoration:none;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.borderColor='#06c167';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(184,50,50,0.12)';this.style.transform='translateY(0)'">
-        <div style="width:60px;height:60px;border-radius:14px;background:#06c16722;border:1px solid #06c16744;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🟢</div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#b83232;margin-bottom:0.2rem;">Uber Eats</div><div style="font-size:0.72rem;font-weight:300;color:rgba(90,55,30,0.55);">Delivery</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:#06c167;padding:0.5rem 0;width:100%;text-align:center;">Order →</div>
-      </a>
-      <a href="https://www.grubhub.com/restaurant/poway-liquor-and-deli-12759-poway-rd-poway/3157372" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:0.9rem;text-align:center;padding:2rem 1.4rem;background:#ffffff;border:1px solid rgba(184,50,50,0.12);text-decoration:none;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.borderColor='#f63440';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(184,50,50,0.12)';this.style.transform='translateY(0)'">
-        <div style="width:60px;height:60px;border-radius:14px;background:#f6344022;border:1px solid #f6344044;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🍔</div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#b83232;margin-bottom:0.2rem;">Grubhub</div><div style="font-size:0.72rem;font-weight:300;color:rgba(90,55,30,0.55);">Delivery & Pickup</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:#f63440;padding:0.5rem 0;width:100%;text-align:center;">Order →</div>
-      </a>
-      <a href="https://postmates.com/store/papas-liquor-%26-deli-poway/elYa-N34ULOmOhLxpWAcJw" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:0.9rem;text-align:center;padding:2rem 1.4rem;background:#ffffff;border:1px solid rgba(184,50,50,0.12);text-decoration:none;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.borderColor='#000000';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(184,50,50,0.12)';this.style.transform='translateY(0)'">
-        <div style="width:60px;height:60px;border-radius:14px;background:#00000022;border:1px solid #00000044;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">📦</div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#b83232;margin-bottom:0.2rem;">Postmates</div><div style="font-size:0.72rem;font-weight:300;color:rgba(90,55,30,0.55);">Delivery</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:#000000;padding:0.5rem 0;width:100%;text-align:center;">Order →</div>
-      </a>
-      <a href="https://www.seamless.com/menu/poway-liquor-and-deli-12759-poway-rd-poway/3157372" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:0.9rem;text-align:center;padding:2rem 1.4rem;background:#ffffff;border:1px solid rgba(184,50,50,0.12);text-decoration:none;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.borderColor='#e8001c';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(184,50,50,0.12)';this.style.transform='translateY(0)'">
-        <div style="width:60px;height:60px;border-radius:14px;background:#e8001c22;border:1px solid #e8001c44;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🍽</div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#b83232;margin-bottom:0.2rem;">Seamless</div><div style="font-size:0.72rem;font-weight:300;color:rgba(90,55,30,0.55);">Delivery & Pickup</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:#e8001c;padding:0.5rem 0;width:100%;text-align:center;">Order →</div>
-      </a>
-      <a href="https://order.online/store/-44143969/?pickup=true" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:0.9rem;text-align:center;padding:2rem 1.4rem;background:#ffffff;border:1px solid rgba(184,50,50,0.12);text-decoration:none;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.borderColor='#2563eb';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(184,50,50,0.12)';this.style.transform='translateY(0)'">
-        <div style="width:60px;height:60px;border-radius:14px;background:#2563eb22;border:1px solid #2563eb44;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🌐</div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#b83232;margin-bottom:0.2rem;">Order Online</div><div style="font-size:0.72rem;font-weight:300;color:rgba(90,55,30,0.55);">Pickup Available</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:#2563eb;padding:0.5rem 0;width:100%;text-align:center;">Order →</div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- SOCIAL MEDIA -->
-<section id="social" style="background:var(--white);border-top:1px solid var(--border);padding:5rem 3rem;">
-  <div style="max-width:1080px;margin:0 auto;text-align:center;">
-    <p style="font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;">Follow Along</p>
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--deli-red);margin-bottom:0.75rem;">Find Us Online</h2>
-    <div style="width:36px;height:2px;background:var(--gold);margin:0 auto 1.5rem;"></div>
-    <p style="font-size:0.88rem;font-weight:300;color:var(--muted);margin-bottom:3rem;max-width:420px;margin-left:auto;margin-right:auto;">Stay up to date with our latest specials, new items, and behind the scenes from the deli.</p>
-    <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
-      <a href="https://www.instagram.com/papasliquoranddeli" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:1rem;padding:2.5rem 3rem;background:var(--white);border:1px solid var(--border);text-decoration:none;min-width:220px;flex:1;max-width:300px;transition:border-color 0.2s,transform 0.2s;" onmouseover="this.style.borderColor='#E1306C';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"></circle></svg>
+    <!-- 3. POPULAR DELI ITEMS -->
+    <section id="popular">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Fresh · Made to Order</p>
+            <h2 class="section-title">Popular deli favorites.</h2>
+            <div class="rule"></div>
+            <p class="section-copy">A quick look at some of Papa's customer favorites. Browse the complete deli menu for the full selection.</p>
+          </div>
+          <a class="btn btn-outline" href="deli.html">See Full Deli Menu</a>
         </div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deli-red);margin-bottom:0.3rem;">Instagram</div><div style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;color:var(--muted);">@papasliquoranddeli</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#E1306C;border:1px solid #E1306C;padding:0.35rem 0.9rem;">Follow Us</div>
-      </a>
-      <a href="https://www.tiktok.com/@papasliquordeli" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:1rem;padding:2.5rem 3rem;background:var(--white);border:1px solid var(--border);text-decoration:none;min-width:220px;flex:1;max-width:300px;transition:border-color 0.2s,transform 0.2s;" onmouseover="this.style.borderColor='#010101';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
-        <div style="width:56px;height:56px;border-radius:14px;background:#010101;display:flex;align-items:center;justify-content:center;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        <div class="popular-grid">
+          <article class="food-card">
+            <img src="PapasLoaded.jpg.webp" alt="Papa's Loaded sandwich" loading="lazy" width="1000" height="750">
+            <div class="food-card-body"><div class="food-card-top"><h3>Papa's Loaded</h3><span class="price">$17</span></div><p>A generously stacked house favorite made fresh to order.</p></div>
+          </article>
+          <article class="food-card">
+            <img src="PapasBeefCheeseSteak.jpg.webp" alt="Papa's beef cheese steak sandwich" loading="lazy" width="1000" height="750">
+            <div class="food-card-body"><div class="food-card-top"><h3>Beef Cheese Steak</h3><span class="price">$17</span></div><p>Hot beef, melted cheese, vegetables, and sauce on a toasted roll.</p></div>
+          </article>
+          <article class="food-card">
+            <img src="PapasItalianoTorpedo.jpg.webp" alt="Papa's Italiano Torpedo sandwich" loading="lazy" width="1000" height="750">
+            <div class="food-card-body"><div class="food-card-top"><h3>Italiano Torpedo</h3><span class="price">$16</span></div><p>A classic Italian-style deli sandwich with fresh toppings.</p></div>
+          </article>
+          <article class="food-card">
+            <img src="PapasChickenBaconChipotle.jpg.webp" alt="Chicken bacon chipotle sandwich" loading="lazy" width="1000" height="750">
+            <div class="food-card-body"><div class="food-card-top"><h3>Chicken Bacon Chipotle</h3><span class="price">$16</span></div><p>Grilled chicken, bacon, fresh toppings, and creamy chipotle flavor.</p></div>
+          </article>
+          <article class="food-card">
+            <img src="PapasGreekSalad.jpg.webp" alt="Papa's Greek salad" loading="lazy" width="1000" height="1000">
+            <div class="food-card-body"><div class="food-card-top"><h3>Greek Salad</h3><span class="price">$9.99</span></div><p>Crisp vegetables, olives, feta, pepperoncini, and dressing.</p></div>
+          </article>
+          <article class="food-card">
+            <img src="PapasCeaserSalad.jpg.webp" alt="Papa's Caesar salad with chicken" loading="lazy" width="1000" height="1000">
+            <div class="food-card-body"><div class="food-card-top"><h3>Caesar Salad</h3><span class="price">$9.99</span></div><p>Crisp romaine, parmesan, croutons, and creamy Caesar dressing.</p></div>
+          </article>
         </div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deli-red);margin-bottom:0.3rem;">TikTok</div><div style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;color:var(--muted);">@papasliquordeli</div></div>
-        <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#010101;border:1px solid #010101;padding:0.35rem 0.9rem;">Follow Us</div>
-      </a>
+      </div>
+    </section>
+
+    <!-- 4. ORDER ONLINE -->
+    <section id="order">
+      <div class="container order-layout">
+        <div>
+          <p class="eyebrow">Pickup & Delivery</p>
+          <h2 class="section-title">Order online.</h2>
+          <div class="rule"></div>
+          <p class="section-copy">Choose pickup or delivery through the platform that works best for you. For the fastest help with a special request, call the store directly.</p>
+        </div>
+        <div>
+          <div class="primary-order-card">
+            <h3>Order for pickup</h3>
+            <p>Place a direct pickup order online and have it ready when you arrive.</p>
+            <a class="btn btn-gold" href="https://order.online/store/-44143969/?pickup=true" target="_blank" rel="noopener">Start Pickup Order</a>
+          </div>
+          <div class="order-links" style="margin-top:.8rem;">
+            <a class="order-link" href="https://www.doordash.com/store/papa's-liquor-&-deli-poway-44143969/108683146/" target="_blank" rel="noopener"><span>DoorDash</span><span>→</span></a>
+            <a class="order-link" href="https://www.ubereats.com/store/papas-liquor-%26-deli-poway/elYa-N34ULOmOhLxpWAcJw" target="_blank" rel="noopener"><span>Uber Eats</span><span>→</span></a>
+            <a class="order-link" href="https://www.grubhub.com/restaurant/poway-liquor-and-deli-12759-poway-rd-poway/3157372" target="_blank" rel="noopener"><span>Grubhub</span><span>→</span></a>
+            <a class="order-link" href="https://postmates.com/store/papas-liquor-%26-deli-poway/elYa-N34ULOmOhLxpWAcJw" target="_blank" rel="noopener"><span>Postmates</span><span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WHAT WE OFFER -->
+    <section id="offerings">
+      <div class="container">
+        <p class="eyebrow">What We Offer</p>
+        <h2 class="section-title">More than a deli.</h2>
+        <div class="rule"></div>
+        <p class="section-copy" style="margin-bottom:2rem;">Stop in for lunch, drinks, snacks, special orders, or everything you need for your next gathering.</p>
+        <div class="offer-grid">
+          <article class="offer-card"><div class="offer-icon">🥖</div><h3>Fresh Deli</h3><p>Breakfast sandwiches, specialty subs, salads, and custom orders made fresh.</p></article>
+          <article class="offer-card"><div class="offer-icon">🥃</div><h3>Liquor & Spirits</h3><p>Tequila, whiskey, bourbon, vodka, gin, rum, brandy, and more.</p></article>
+          <article class="offer-card"><div class="offer-icon">🍺</div><h3>Beer</h3><p>Cold domestic staples, imports, craft selections, singles, and multipacks.</p></article>
+          <article class="offer-card"><div class="offer-icon">🍷</div><h3>Wine</h3><p>Reds, whites, rosé, sparkling wine, and selections from around the world.</p></article>
+          <article class="offer-card"><div class="offer-icon">🥤</div><h3>Drinks & Snacks</h3><p>Sodas, mixers, energy drinks, water, chips, candy, and everyday essentials.</p></article>
+          <article class="offer-card"><div class="offer-icon">🔎</div><h3>Special Orders</h3><p>Looking for something specific? Ask our team about availability and special requests.</p></article>
+        </div>
+        <div style="text-align:center;margin-top:2rem;"><a class="btn btn-gold" href="menu.html">Browse Full Inventory</a></div>
+      </div>
+    </section>
+
+    <!-- 6. CATERING CALLOUT -->
+    <section id="catering">
+      <div class="container catering-inner">
+        <div>
+          <p class="eyebrow" style="color:rgba(255,255,255,.55);">Parties · Meetings · Gatherings</p>
+          <h2>Let Papa's cater your next event.</h2>
+          <p>Tell us your date, guest count, and what you have in mind. We will help you put together a fresh deli order for gatherings large or small.</p>
+        </div>
+        <div class="catering-actions">
+          <a class="btn btn-gold" href="#contact">Request Catering</a>
+          <a class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,.5);" href="tel:+18588421111">Call (858) 842-1111</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SHORT FAMILY STORY -->
+    <section id="about">
+      <div class="container story-grid">
+        <img class="story-image" src="PapasLogo-Gold.png" alt="Papa's Liquor and Deli family business logo" loading="lazy" width="800" height="800">
+        <div class="story-text">
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">A neighborhood shop built for Poway.</h2>
+          <div class="rule"></div>
+          <p>Papa's Liquor & Deli is a family-owned neighborhood store created with a simple goal: make every customer feel welcome and serve food we are proud to put our name on.</p>
+          <p>From regulars stopping in for their usual order to families preparing for a weekend gathering, we value the conversations, familiar faces, and relationships that make a local business feel like part of the community.</p>
+          <p>Every sandwich is made fresh and every visit matters. We are grateful to serve Poway, one order and one neighbor at a time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. REVIEWS -->
+    <section id="reviews">
+      <div class="container">
+        <p class="eyebrow">Community Feedback</p>
+        <h2 class="section-title">See what Poway is saying.</h2>
+        <div class="rule"></div>
+        <div class="review-panel">
+          <div class="review-copy">
+            <blockquote>Great local businesses grow through the people who visit, return, and tell their neighbors.</blockquote>
+            <p>Read recent customer experiences on Google before your visit. After stopping by, your honest review helps other Poway neighbors discover Papa's.</p>
+            <a class="btn btn-outline" href="https://www.google.com/maps/place/Papa's+Liquor+%26+Deli/@32.9555106,-117.0567425,17z" target="_blank" rel="noopener">Read Google Reviews</a>
+          </div>
+          <div class="review-actions">
+            <h3>Already visited Papa's?</h3>
+            <p>Share your experience with a quick Google review. Your support means a great deal to a family-owned local business.</p>
+            <a class="btn btn-gold" href="https://www.google.com/maps/place/Papa's+Liquor+%26+Deli/@32.9555106,-117.0567425,17z" target="_blank" rel="noopener">Leave a Google Review</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. LOCATION AND MAP -->
+    <section id="location">
+      <div class="container">
+        <p class="eyebrow">Hours & Location</p>
+        <h2 class="section-title">Come see us in Poway.</h2>
+        <div class="rule"></div>
+        <div class="location-grid">
+          <div class="hours-card">
+            <h3>Hours</h3>
+            <div class="hours-tabs" role="tablist" aria-label="Business hours">
+              <button class="hours-tab active" type="button" data-tab="store">Store</button>
+              <button class="hours-tab" type="button" data-tab="breakfast">Breakfast</button>
+              <button class="hours-tab" type="button" data-tab="lunch">Lunch</button>
+            </div>
+            <div class="hours-panel active" id="tab-store">
+              <table class="hours-table"><tbody>
+                <tr><td>Monday</td><td>8 AM – 9 PM</td></tr><tr><td>Tuesday</td><td>8 AM – 9 PM</td></tr><tr><td>Wednesday</td><td>8 AM – 9 PM</td></tr><tr><td>Thursday</td><td>8 AM – 9 PM</td></tr><tr><td>Friday</td><td>8 AM – 9 PM</td></tr><tr><td>Saturday</td><td>8 AM – 9 PM</td></tr><tr><td>Sunday</td><td>8:30 AM – 8:30 PM</td></tr>
+              </tbody></table>
+            </div>
+            <div class="hours-panel" id="tab-breakfast">
+              <table class="hours-table"><tbody>
+                <tr><td>Monday</td><td>8 AM – 11 AM</td></tr><tr><td>Tuesday</td><td>8 AM – 11 AM</td></tr><tr><td>Wednesday</td><td>8 AM – 11 AM</td></tr><tr><td>Thursday</td><td>8 AM – 11 AM</td></tr><tr><td>Friday</td><td>8 AM – 11 AM</td></tr><tr><td>Saturday</td><td>8 AM – 11 AM</td></tr><tr class="closed"><td>Sunday</td><td>Closed</td></tr>
+              </tbody></table>
+            </div>
+            <div class="hours-panel" id="tab-lunch">
+              <table class="hours-table"><tbody>
+                <tr><td>Monday</td><td>11 AM – 3 PM</td></tr><tr><td>Tuesday</td><td>11 AM – 3 PM</td></tr><tr><td>Wednesday</td><td>11 AM – 3 PM</td></tr><tr><td>Thursday</td><td>11 AM – 3 PM</td></tr><tr><td>Friday</td><td>11 AM – 3 PM</td></tr><tr><td>Saturday</td><td>11 AM – 3 PM</td></tr><tr class="closed"><td>Sunday</td><td>Closed</td></tr>
+              </tbody></table>
+            </div>
+          </div>
+          <div class="map-card">
+            <iframe title="Map showing Papa's Liquor and Deli in Poway" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1673.914799917815!2d-117.05525462293721!3d32.955508000952626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbfbef6f2df0a9%3A0x5500316fe0590f7d!2sPapa&#39;s%20Liquor%20%26%20Deli!5e0!3m2!1sen!2sus!4v1783394492106!5m2!1sen!2sus" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="map-details">
+              <div><strong>Papa's Liquor & Deli</strong><p>12759 Poway Rd #1<br>Poway, CA 92064<br>(858) 842-1111</p></div>
+              <a class="btn btn-primary" href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">Get Directions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. CONTACT -->
+    <section id="contact">
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow">Get In Touch</p>
+          <h2 class="section-title">Questions or catering inquiries?</h2>
+          <div class="rule"></div>
+          <p class="section-copy">Call the store for the fastest response, or use the form to prepare an email with your request.</p>
+          <div class="contact-list">
+            <div class="contact-row"><span>📞</span><div><strong>Phone</strong><a href="tel:+18588421111">(858) 842-1111</a></div></div>
+            <div class="contact-row"><span>📍</span><div><strong>Address</strong><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">12759 Poway Rd #1, Poway, CA 92064</a></div></div>
+            <div class="contact-row"><span>🍽</span><div><strong>Catering</strong>Please include your event date, guest count, pickup time, and requested items.</div></div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" type="text" autocomplete="given-name" required></div>
+            <div class="field"><label for="lastName">Last name</label><input id="lastName" name="lastName" type="text" autocomplete="family-name" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="field"><label for="inquiryType">Inquiry type</label><select id="inquiryType" name="inquiryType" style="width:100%;border:1px solid var(--border);background:white;padding:.85rem;color:var(--brown);"><option>General question</option><option>Catering inquiry</option><option>Special order request</option></select></div>
+          <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="6" required placeholder="Tell us how we can help..."></textarea></div>
+          <button class="btn btn-gold" type="submit">Prepare Email</button>
+          <p class="form-note">This button opens your email app with the message filled in. Replace the email address in the script with the client's preferred business email when available.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- 11. SOCIAL -->
+    <section id="social">
+      <div class="container">
+        <p class="eyebrow">Follow Along</p>
+        <h2 class="section-title">Find Papa's online.</h2>
+        <div class="rule" style="margin-inline:auto;"></div>
+        <p class="section-copy" style="margin-inline:auto;">Follow new deli items, store updates, specials, and behind-the-scenes moments.</p>
+        <div class="social-links">
+          <a class="social-card" href="https://www.instagram.com/papasliquoranddeli" target="_blank" rel="noopener"><div class="icon">📸</div><strong>Instagram</strong><span>@papasliquoranddeli</span></a>
+          <a class="social-card" href="https://www.tiktok.com/@papasliquordeli" target="_blank" rel="noopener"><div class="icon">🎵</div><strong>TikTok</strong><span>@papasliquordeli</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 12. FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Papa's Liquor & Deli</div>
+      <div class="footer-links"><a href="deli.html">Deli Menu</a><a href="menu.html">Inventory</a><a href="#location">Visit Us</a></div>
+      <div class="footer-legal">Must be 21+ to purchase alcohol. Drink responsibly.</div>
     </div>
+  </footer>
+
+  <div class="mobile-bar" aria-label="Quick actions">
+    <a href="tel:+18588421111">📞<br>Call</a>
+    <a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">📍<br>Directions</a>
+    <a href="#order">🛍<br>Order</a>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Papa's Liquor & Deli</div>
-  <div class="footer-note">Poway, CA &nbsp;·&nbsp; Family Owned</div>
-  <div style="display:flex;gap:1rem;align-items:center;">
-    <a href="https://www.instagram.com/papasliquoranddeli" target="_blank" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;" onmouseover="this.style.color='#E1306C'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Instagram</a>
-    <span style="color:rgba(255,255,255,0.2);">·</span>
-    <a href="https://www.tiktok.com/@papasliquordeli" target="_blank" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">TikTok</a>
-  </div>
-  <div class="footer-legal">Must be 21+ to purchase alcohol. Drink responsibly.</div>
-</footer>
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.textContent = open ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
 
-<script>
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const storeHours = {
+      0: { open: 8.5, close: 20.5, label: '8:30 AM – 8:30 PM' },
+      1: { open: 8, close: 21, label: '8 AM – 9 PM' },
+      2: { open: 8, close: 21, label: '8 AM – 9 PM' },
+      3: { open: 8, close: 21, label: '8 AM – 9 PM' },
+      4: { open: 8, close: 21, label: '8 AM – 9 PM' },
+      5: { open: 8, close: 21, label: '8 AM – 9 PM' },
+      6: { open: 8, close: 21, label: '8 AM – 9 PM' }
+    };
 
+    function updateOpenStatus() {
+      const now = new Date();
+      const day = now.getDay();
+      const currentTime = now.getHours() + now.getMinutes() / 60;
+      const hours = storeHours[day];
+      const isOpen = currentTime >= hours.open && currentTime < hours.close;
+      const status = document.getElementById('openStatus');
+      const todayHours = document.getElementById('todayHours');
+      status.innerHTML = `<span class="status-dot ${isOpen ? 'open' : 'closed'}"></span>${isOpen ? 'Open now' : 'Closed now'}`;
+      todayHours.textContent = `${dayNames[day]} · ${hours.label}`;
+    }
+    updateOpenStatus();
 
-  // Highlight today in hours
-  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var today = days[new Date().getDay()];
-  document.querySelectorAll('.hours-table tr').forEach(function(row) {
-    var cell = row.querySelector('td');
-    if (cell && cell.textContent.trim() === today) row.classList.add('today');
-  });
+    document.querySelectorAll('.hours-table tr').forEach(row => {
+      const firstCell = row.querySelector('td');
+      if (firstCell && firstCell.textContent.trim() === dayNames[new Date().getDay()]) row.classList.add('today');
+    });
 
-  // Hours tabs
-  function showTab(name, btn) {
-    document.querySelectorAll('.hours-panel').forEach(function(p) { p.classList.remove('active'); });
-    document.querySelectorAll('.hours-tab').forEach(function(t) { t.classList.remove('active'); });
-    document.getElementById('tab-' + name).classList.add('active');
-    btn.classList.add('active');
-  }
+    document.querySelectorAll('.hours-tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.hours-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.hours-panel').forEach(panel => panel.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(`tab-${button.dataset.tab}`).classList.add('active');
+      });
+    });
 
-
-
-  // Slideshow
-  var slCur = 0;
-  var slTotal = 15;
-  var slTimer = setInterval(function() { slChange(1); }, 4500);
-  function slGo(n) {
-    document.getElementById('sl' + slCur).style.display = 'none';
-    document.getElementById('dot' + slCur).style.background = 'rgba(255,255,255,0.35)';
-    slCur = (n + slTotal) % slTotal;
-    document.getElementById('sl' + slCur).style.display = 'block';
-    document.getElementById('dot' + slCur).style.background = '#b8841f';
-    clearInterval(slTimer);
-    slTimer = setInterval(function() { slChange(1); }, 4500);
-  }
-  function slChange(dir) { slGo(slCur + dir); }
-
-</script>
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const name = `${form.get('firstName')} ${form.get('lastName')}`.trim();
+      const subject = encodeURIComponent(`${form.get('inquiryType')} from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${form.get('email')}\nPhone: ${form.get('phone') || 'Not provided'}\nInquiry: ${form.get('inquiryType')}\n\n${form.get('message')}`);
+      window.location.href = `mailto:YOUR-BUSINESS-EMAIL@example.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+  <script src="agegate.js" defer></script>
 </body>
 </html>
