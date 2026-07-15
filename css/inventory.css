@@ -10,3 +10,11 @@ html{scroll-behavior:smooth}body{font-family:'Barlow',sans-serif;background:var(
 footer{background:var(--brown);color:#fff;padding:2rem}.footer-inner{max-width:1080px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}.footer-brand{font-family:'Playfair Display',serif;color:var(--gold);font-weight:700}.footer-links{display:flex;gap:1rem}.footer-links a{color:rgba(255,255,255,.68);text-decoration:none;font-size:.75rem}.footer-legal{font-size:.68rem;color:rgba(255,255,255,.42)}.mobile-bar{display:none}
 @media(max-width:900px){.items-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-links{gap:1rem}.nav-links a{font-size:.62rem}}
 @media(max-width:760px){body{padding-bottom:62px}.nav-inner{padding:.55rem 1rem}.brand-text{font-size:.95rem}.menu-toggle{display:block}.nav-links{position:absolute;top:100%;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid var(--border);padding:.6rem 1rem 1rem}.nav-links.open{display:flex}.nav-links a{display:block;padding:.8rem}.page-header{padding:7rem 1.25rem 2.6rem}.page-header::after{display:none}.header-actions{display:grid;grid-template-columns:1fr}.header-action{width:100%}.tabs-wrap{top:62px}.inventory-section{padding:2rem 1rem 4rem}.toolbar{align-items:stretch}.toolbar-actions{width:100%}.sort-select{flex:1}.items-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center}.mobile-bar{position:fixed;display:grid;grid-template-columns:repeat(3,1fr);left:0;right:0;bottom:0;z-index:350;background:#fff;border-top:1px solid var(--border);box-shadow:0 -8px 25px rgba(58,42,26,.08)}.mobile-bar a{text-align:center;padding:.55rem .2rem;color:var(--brown);text-decoration:none;font-size:.7rem;line-height:1.35}.footer-links{flex-wrap:wrap;justify-content:center}}
+
+
+/* Reliable mobile navigation */
+.menu-toggle { touch-action: manipulation; -webkit-tap-highlight-color: transparent; position: relative; z-index: 502; }
+body.menu-open { overflow: hidden; }
+@media (max-width: 760px) {
+  .nav-links.open { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; z-index: 501; }
+}
