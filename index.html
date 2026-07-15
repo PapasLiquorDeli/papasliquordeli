@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260714-4">
+  <link rel="stylesheet" href="css/styles.css?v=20260714-6">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -268,29 +268,89 @@
     <section id="contact">
       <div class="container contact-grid">
         <div>
-          <p class="eyebrow">Get In Touch</p>
-          <h2 class="section-title">Questions or catering inquiries?</h2>
+          <p class="eyebrow">Catering Requests</p>
+          <h2 class="section-title">Tell us about your event.</h2>
           <div class="rule"></div>
-          <p class="section-copy">Call the store for the fastest response, or use the form to prepare an email with your request.</p>
+          <p class="section-copy">Share the details below and Papa's will follow up to confirm availability, menu options, timing, and pricing. For same-day or urgent requests, please call the store.</p>
           <div class="contact-list">
             <div class="contact-row"><span>📞</span><div><strong>Phone</strong><a href="tel:+18588421111">(858) 842-1111</a></div></div>
-            <div class="contact-row"><span>📍</span><div><strong>Address</strong><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">12759 Poway Rd #1, Poway, CA 92064</a></div></div>
-            <div class="contact-row"><span>🍽</span><div><strong>Catering</strong>Please include your event date, guest count, pickup time, and requested items.</div></div>
+            <div class="contact-row"><span>📍</span><div><strong>Pickup Location</strong><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">12759 Poway Rd #1, Poway, CA 92064</a></div></div>
+            <div class="contact-row"><span>🍽</span><div><strong>Helpful Details</strong>Event date, guest count, preferred pickup time, sandwich or platter preferences, and dietary needs.</div></div>
           </div>
         </div>
-        <form class="contact-form" id="contactForm">
-          <div class="form-row">
-            <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" type="text" autocomplete="given-name" required></div>
-            <div class="field"><label for="lastName">Last name</label><input id="lastName" name="lastName" type="text" autocomplete="family-name" required></div>
+
+        <form class="contact-form catering-form" id="contactForm" action="https://formsubmit.co/papasliquor.niko@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Catering Request — Papa's Liquor & Deli">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_autoresponse" value="Thank you for contacting Papa's Liquor & Deli. We received your catering request and will follow up to confirm availability, menu options, timing, and pricing. For urgent or same-day requests, please call (858) 842-1111.">
+          <input type="text" name="_honey" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-intro">
+            <div>
+              <p class="form-kicker">Catering inquiry</p>
+              <h3>Plan your order with Papa's.</h3>
+              <p>Complete the details below and our team will contact you to finalize the menu and timing.</p>
+            </div>
+            <span class="form-time-note">Usually takes 2–3 minutes</span>
           </div>
-          <div class="form-row">
-            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-            <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+
+          <fieldset class="form-step">
+            <legend>
+              <span class="step-number">1</span>
+              <span><strong>Your information</strong><small>How should we reach you?</small></span>
+            </legend>
+            <div class="form-row">
+              <div class="field"><label for="firstName">First name <span aria-hidden="true">*</span></label><input id="firstName" name="First Name" type="text" autocomplete="given-name" required></div>
+              <div class="field"><label for="lastName">Last name <span aria-hidden="true">*</span></label><input id="lastName" name="Last Name" type="text" autocomplete="family-name" required></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="email">Email <span aria-hidden="true">*</span></label><input id="email" name="Email" type="email" autocomplete="email" required></div>
+              <div class="field"><label for="phone">Phone <span aria-hidden="true">*</span></label><input id="phone" name="Phone" type="tel" autocomplete="tel" placeholder="(858) 555-0123" required></div>
+            </div>
+            <div class="field">
+              <label for="contactPreference">Preferred contact method</label>
+              <select id="contactPreference" name="Preferred Contact Method">
+                <option>Email</option><option>Phone call</option><option>Text message</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-step">
+            <legend>
+              <span class="step-number">2</span>
+              <span><strong>Event details</strong><small>Tell us when and who you are feeding.</small></span>
+            </legend>
+            <div class="form-row form-row-three">
+              <div class="field"><label for="eventDate">Event date <span aria-hidden="true">*</span></label><input id="eventDate" name="Event Date" type="date" required></div>
+              <div class="field"><label for="eventTime">Preferred time <span aria-hidden="true">*</span></label><input id="eventTime" name="Preferred Time" type="time" required></div>
+              <div class="field"><label for="guestCount">Guest count <span aria-hidden="true">*</span></label><input id="guestCount" name="Guest Count" type="number" min="1" max="1000" inputmode="numeric" placeholder="30" required></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="eventType">Event type <span aria-hidden="true">*</span></label><select id="eventType" name="Event Type" required><option value="" selected disabled>Select an event</option><option>Office lunch or meeting</option><option>Birthday</option><option>Graduation</option><option>Family gathering</option><option>Wedding or shower</option><option>School or team event</option><option>Other</option></select></div>
+              <div class="field"><label for="serviceType">Order type <span aria-hidden="true">*</span></label><select id="serviceType" name="Order Type" required><option value="Pickup" selected>Pickup</option><option value="Delivery request">Delivery request</option></select></div>
+            </div>
+            <div class="field delivery-address" id="deliveryAddressField" hidden><label for="deliveryAddress">Delivery address</label><input id="deliveryAddress" name="Delivery Address" type="text" autocomplete="street-address" placeholder="Street address, city, and ZIP"></div>
+          </fieldset>
+
+          <fieldset class="form-step">
+            <legend>
+              <span class="step-number">3</span>
+              <span><strong>Menu request</strong><small>Give us a starting point for your order.</small></span>
+            </legend>
+            <div class="form-row">
+              <div class="field"><label for="menuInterest">Menu interest</label><select id="menuInterest" name="Menu Interest"><option>Sandwich platters</option><option>Individual sandwiches</option><option>Salads</option><option>Mixed deli order</option><option>Not sure — please recommend</option></select></div>
+              <div class="field"><label for="budget">Approximate budget</label><select id="budget" name="Approximate Budget"><option value="">Not sure yet</option><option>Under $100</option><option>$100–$249</option><option>$250–$499</option><option>$500–$999</option><option>$1,000+</option></select></div>
+            </div>
+            <div class="field"><label for="dietaryNeeds">Dietary needs or allergies</label><input id="dietaryNeeds" name="Dietary Needs or Allergies" type="text" placeholder="Vegetarian, gluten sensitivity, allergies, etc."></div>
+            <div class="field"><label for="message">Additional details</label><textarea id="message" name="Additional Details" rows="5" placeholder="Requested items, quantities, serving preferences, setup notes, or anything else we should know."></textarea></div>
+          </fieldset>
+
+          <div class="form-submit-panel">
+            <label class="consent-row"><input type="checkbox" name="Contact Permission" value="Yes" required><span>I understand this is a request and the order is not confirmed until Papa's contacts me.</span></label>
+            <button class="btn btn-gold form-submit" type="submit"><span>Send Catering Request</span><span aria-hidden="true">→</span></button>
+            <p class="form-note">Papa's will contact you to confirm availability, pricing, and final details. Submitting this form does not place or pay for an order.</p>
           </div>
-          <div class="field"><label for="inquiryType">Inquiry type</label><select id="inquiryType" name="inquiryType" style="width:100%;border:1px solid var(--border);background:white;padding:.85rem;color:var(--brown);"><option>General question</option><option>Catering inquiry</option><option>Special order request</option></select></div>
-          <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="6" required placeholder="Tell us how we can help..."></textarea></div>
-          <button class="btn btn-gold" type="submit">Prepare Email</button>
-          <p class="form-note">This button opens your email app with the message filled in. Replace the email address in the script with the client's preferred business email when available.</p>
         </form>
       </div>
     </section>
