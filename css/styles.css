@@ -148,6 +148,21 @@
     .story-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 4rem; align-items: center; }
     .story-image { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: transparent; }
     .story-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1rem; }
+    .story-signature {
+      margin-top: 1.8rem;
+      padding-top: 1.35rem;
+      border-top: 2px solid var(--gold);
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem 1.25rem;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      line-height: 1.5;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .story-signature span { white-space: nowrap; }
 
     /* REVIEWS */
     #reviews { background: white; }
