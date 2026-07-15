@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Papa's Liquor & Deli is a family-owned neighborhood deli and liquor store in Poway, California, serving fresh sandwiches, salads, beer, wine, spirits, snacks, pickup, delivery, and catering.">
+  <title>Papa's Liquor & Deli | Poway, CA</title>
+  <link rel="icon" href="PapasPhotos/PapasLogo-Gold.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=20260714-8">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Papa's Liquor and Deli home">
+        <img src="PapasPhotos/PapasLogo-Gold.png" alt="" width="50" height="50">
+        <span class="brand-text">Papa's <span>Liquor & Deli</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#popular">Deli Favorites</a></li>
+        <li><a href="deli.html">Full Deli Menu</a></li>
+        <li><a href="menu.html">Drinks & Inventory</a></li>
+        <li><a href="#catering">Catering</a></li>
+        <li><a href="#location">Visit Us</a></li>
+        <li><a class="nav-order" href="#order">Order Online</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- 1. FOOD-FOCUSED HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <img class="hero-logo" src="PapasPhotos/PapasLogo-Gold.png" alt="Papa's Liquor and Deli logo" width="104" height="104">
+          <p class="eyebrow">Poway, California · Family Owned</p>
+          <h1 class="hero-title" aria-label="Papa's Liquor and Deli">
+            <span class="hero-red">Papa's</span>
+            <span class="hero-gold">Liquor &amp;</span>
+            <span class="hero-gold">Deli</span>
+          </h1>
+          <p class="hero-copy">Fresh sandwiches made to order, premium spirits, craft beer, wine, and everyday essentials, all served with genuine neighborhood hospitality.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#order">Order Food</a>
+            <a class="btn btn-gold" href="deli.html">View Deli Menu</a>
+            <a class="btn btn-outline" href="tel:+18588421111">Call the Store</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="PapasPhotos/PapasLoaded.jpg.webp" alt="Papa's Loaded deli sandwich" width="1000" height="750">
+          <div class="hero-badge" aria-label="Fresh, tasty, made with love">
+            <div><strong>Fresh.</strong><span>Tasty · Made with love</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. OPEN STATUS, HOURS, PHONE, DIRECTIONS -->
+    <div class="quick-info" aria-label="Store information">
+      <div class="container quick-grid">
+        <div class="quick-item">
+          <div class="quick-icon">●</div>
+          <div><div class="quick-label">Current Status</div><div class="quick-value" id="openStatus"><span class="status-dot"></span>Checking today's hours…</div></div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">🕐</div>
+          <div><div class="quick-label">Today's Hours</div><div class="quick-value" id="todayHours">Store hours loading…</div></div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">📞</div>
+          <div><div class="quick-label">Call Us</div><div class="quick-value"><a href="tel:+18588421111">(858) 842-1111</a></div></div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">📍</div>
+          <div><div class="quick-label">Directions</div><div class="quick-value"><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">12759 Poway Rd #1<br>Poway, CA 92064</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. POPULAR DELI ITEMS -->
+    <section id="popular">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Fresh · Made to Order</p>
+            <h2 class="section-title">Popular deli favorites.</h2>
+            <div class="rule"></div>
+            <p class="section-copy">A quick look at some of Papa's customer favorites. Browse the complete deli menu for the full selection.</p>
+          </div>
+          <a class="btn btn-outline" href="deli.html">See Full Deli Menu</a>
+        </div>
+        <div class="popular-grid">
+          <article class="food-card">
+            <div class="food-card-image"><img src="PapasPhotos/PapasLoaded.jpg.webp" alt="Papa's Loaded sandwich" loading="lazy" width="1000" height="750"></div>
+            <div class="food-card-body"><div class="food-card-top"><h3>Papa's Loaded</h3><span class="price">$17</span></div><p>A generously stacked house favorite made fresh to order.</p></div>
+          </article>
+          <article class="food-card">
+            <div class="food-card-image"><img src="PapasPhotos/PapasBeefCheeseSteak.jpg.webp" alt="Papa's beef cheese steak sandwich" loading="lazy" width="1000" height="750"></div>
+            <div class="food-card-body"><div class="food-card-top"><h3>Beef Cheese Steak</h3><span class="price">$17</span></div><p>Hot beef, melted cheese, vegetables, and sauce on a toasted roll.</p></div>
+          </article>
+          <article class="food-card">
+            <div class="food-card-image"><img src="PapasPhotos/PapasItalianoTorpedo.jpg.webp" alt="Papa's Italiano Torpedo sandwich" loading="lazy" width="1000" height="750"></div>
+            <div class="food-card-body"><div class="food-card-top"><h3>Italiano Torpedo</h3><span class="price">$16</span></div><p>A classic Italian-style deli sandwich with fresh toppings.</p></div>
+          </article>
+          <article class="food-card">
+            <div class="food-card-image"><img src="PapasPhotos/PapasChickenBaconChipotle.jpg.webp" alt="Chicken bacon chipotle sandwich" loading="lazy" width="1000" height="750"></div>
+            <div class="food-card-body"><div class="food-card-top"><h3>Chicken Bacon Chipotle</h3><span class="price">$16</span></div><p>Grilled chicken, bacon, fresh toppings, and creamy chipotle flavor.</p></div>
+          </article>
+          <article class="food-card">
+            <div class="food-card-image"><img src="PapasPhotos/PapasGreekSalad.jpg.webp" alt="Papa's Greek salad" loading="lazy" width="1000" height="1000"></div>
+            <div class="food-card-body"><div class="food-card-top"><h3>Greek Salad</h3><span class="price">$9.99</span></div><p>Crisp vegetables, olives, feta, pepperoncini, and dressing.</p></div>
+          </article>
+          <article class="food-card">
+            <div class="food-card-image"><img src="PapasPhotos/PapasCeaserSalad.jpg.webp" alt="Papa's Caesar salad with chicken" loading="lazy" width="1000" height="1000"></div>
+            <div class="food-card-body"><div class="food-card-top"><h3>Caesar Salad</h3><span class="price">$9.99</span></div><p>Crisp romaine, parmesan, croutons, and creamy Caesar dressing.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ORDER ONLINE -->
+    <section id="order">
+      <div class="container order-layout">
+        <div>
+          <p class="eyebrow">Pickup & Delivery</p>
+          <h2 class="section-title">Order online.</h2>
+          <div class="rule"></div>
+          <p class="section-copy">Choose pickup or delivery through the platform that works best for you. For the fastest help with a special request, call the store directly.</p>
+        </div>
+        <div>
+          <div class="primary-order-card">
+            <h3>Order for pickup</h3>
+            <p>Place a direct pickup order online and have it ready when you arrive.</p>
+            <a class="btn btn-gold" href="https://order.online/store/-44143969/?pickup=true" target="_blank" rel="noopener">Start Pickup Order</a>
+          </div>
+          <div class="order-links" style="margin-top:.8rem;">
+            <a class="order-link" href="https://www.doordash.com/store/papa's-liquor-&-deli-poway-44143969/108683146/" target="_blank" rel="noopener"><span>DoorDash</span><span>→</span></a>
+            <a class="order-link" href="https://www.ubereats.com/store/papas-liquor-%26-deli-poway/elYa-N34ULOmOhLxpWAcJw" target="_blank" rel="noopener"><span>Uber Eats</span><span>→</span></a>
+            <a class="order-link" href="https://www.grubhub.com/restaurant/poway-liquor-and-deli-12759-poway-rd-poway/3157372" target="_blank" rel="noopener"><span>Grubhub</span><span>→</span></a>
+            <a class="order-link" href="https://postmates.com/store/papas-liquor-%26-deli-poway/elYa-N34ULOmOhLxpWAcJw" target="_blank" rel="noopener"><span>Postmates</span><span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WHAT WE OFFER -->
+    <section id="offerings">
+      <div class="container">
+        <p class="eyebrow">What We Offer</p>
+        <h2 class="section-title">More than a deli.</h2>
+        <div class="rule"></div>
+        <p class="section-copy" style="margin-bottom:2rem;">Stop in for lunch, drinks, snacks, special orders, or everything you need for your next gathering.</p>
+        <div class="offer-grid">
+          <article class="offer-card"><div class="offer-icon">🥖</div><h3>Fresh Deli</h3><p>Breakfast sandwiches, specialty subs, salads, and custom orders made fresh.</p></article>
+          <article class="offer-card"><div class="offer-icon">🥃</div><h3>Liquor & Spirits</h3><p>Tequila, whiskey, bourbon, vodka, gin, rum, brandy, and more.</p></article>
+          <article class="offer-card"><div class="offer-icon">🍺</div><h3>Beer</h3><p>Cold domestic staples, imports, craft selections, singles, and multipacks.</p></article>
+          <article class="offer-card"><div class="offer-icon">🍷</div><h3>Wine</h3><p>Reds, whites, rosé, sparkling wine, and selections from around the world.</p></article>
+          <article class="offer-card"><div class="offer-icon">🥤</div><h3>Drinks & Snacks</h3><p>Sodas, mixers, energy drinks, water, chips, candy, and everyday essentials.</p></article>
+          <article class="offer-card"><div class="offer-icon">🔎</div><h3>Special Orders</h3><p>Looking for something specific? Ask our team about availability and special requests.</p></article>
+        </div>
+        <div style="text-align:center;margin-top:2rem;"><a class="btn btn-gold" href="menu.html">Browse Full Inventory</a></div>
+      </div>
+    </section>
+
+    <!-- 6. CATERING CALLOUT -->
+    <section id="catering">
+      <div class="container catering-inner">
+        <div>
+          <p class="eyebrow" style="color:rgba(255,255,255,.55);">Parties · Meetings · Gatherings</p>
+          <h2>Let Papa's cater your next event.</h2>
+          <p>Tell us your date, guest count, and what you have in mind. We will help you put together a fresh deli order for gatherings large or small.</p>
+        </div>
+        <div class="catering-actions">
+          <a class="btn btn-gold" href="#contact">Request Catering</a>
+          <a class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,.5);" href="tel:+18588421111">Call (858) 842-1111</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SHORT FAMILY STORY -->
+    <section id="about">
+      <div class="container story-grid">
+        <img class="story-image" src="PapasPhotos/PapasLogo-Gold.png" alt="Papa's Liquor and Deli family business logo" loading="lazy" width="800" height="800">
+        <div class="story-text">
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">A neighborhood shop built for Poway.</h2>
+          <div class="rule"></div>
+          <p>Papa's Liquor & Deli is a proud family-owned business serving the Poway community with fresh food, quality products, and genuine hospitality. Since opening our doors, we have believed that every customer should feel like a neighbor, whether they are stopping in for a quick lunch, picking up a favorite bottle, or grabbing everyday essentials.</p>
+          <p>Our deli is built around fresh, made-to-order sandwiches, crisp salads, and ingredients we take pride in serving. Alongside our kitchen, you will find a carefully selected variety of beer, wine, spirits, snacks, and convenience items, making Papa's a dependable one-stop neighborhood destination.</p>
+          <p>More than anything, we are grateful for the relationships we have built with our customers over the years. Many familiar faces have become friends, and we are honored to continue serving the families, workers, students, and visitors who make our community so special.</p>
+          <div class="story-signature" aria-label="Papa's values">
+            <span>Family Owned.</span>
+            <span>Community Focused.</span>
+            <span>Proudly Serving Poway.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. REVIEWS -->
+    <section id="reviews">
+      <div class="container">
+        <p class="eyebrow">Community Feedback</p>
+        <h2 class="section-title">See what Poway is saying.</h2>
+        <div class="rule"></div>
+        <div class="review-panel">
+          <div class="review-copy">
+            <blockquote>Great local businesses grow through the people who visit, return, and tell their neighbors.</blockquote>
+            <p>Read recent customer experiences on Google before your visit. After stopping by, your honest review helps other Poway neighbors discover Papa's.</p>
+            <a class="btn btn-outline" href="https://www.google.com/maps/place/Papa's+Liquor+%26+Deli/@32.9555106,-117.0567425,17z" target="_blank" rel="noopener">Read Google Reviews</a>
+          </div>
+          <div class="review-actions">
+            <h3>Already visited Papa's?</h3>
+            <p>Share your experience with a quick Google review. Your support means a great deal to a family-owned local business.</p>
+            <a class="btn btn-gold" href="https://www.google.com/maps/place/Papa's+Liquor+%26+Deli/@32.9555106,-117.0567425,17z" target="_blank" rel="noopener">Leave a Google Review</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. LOCATION AND MAP -->
+    <section id="location">
+      <div class="container">
+        <p class="eyebrow">Hours & Location</p>
+        <h2 class="section-title">Come see us in Poway.</h2>
+        <div class="rule"></div>
+        <div class="location-grid">
+          <div class="hours-card">
+            <h3>Hours</h3>
+            <div class="hours-tabs" role="tablist" aria-label="Business hours">
+              <button class="hours-tab active" type="button" data-tab="store">Store</button>
+              <button class="hours-tab" type="button" data-tab="breakfast">Breakfast</button>
+              <button class="hours-tab" type="button" data-tab="lunch">Lunch</button>
+            </div>
+            <div class="hours-panel active" id="tab-store">
+              <table class="hours-table"><tbody>
+                <tr><td>Monday</td><td>8 AM – 9 PM</td></tr><tr><td>Tuesday</td><td>8 AM – 9 PM</td></tr><tr><td>Wednesday</td><td>8 AM – 9 PM</td></tr><tr><td>Thursday</td><td>8 AM – 9 PM</td></tr><tr><td>Friday</td><td>8 AM – 9 PM</td></tr><tr><td>Saturday</td><td>8 AM – 9 PM</td></tr><tr><td>Sunday</td><td>8:30 AM – 8:30 PM</td></tr>
+              </tbody></table>
+            </div>
+            <div class="hours-panel" id="tab-breakfast">
+              <table class="hours-table"><tbody>
+                <tr><td>Monday</td><td>8 AM – 11 AM</td></tr><tr><td>Tuesday</td><td>8 AM – 11 AM</td></tr><tr><td>Wednesday</td><td>8 AM – 11 AM</td></tr><tr><td>Thursday</td><td>8 AM – 11 AM</td></tr><tr><td>Friday</td><td>8 AM – 11 AM</td></tr><tr><td>Saturday</td><td>8 AM – 11 AM</td></tr><tr class="closed"><td>Sunday</td><td>Closed</td></tr>
+              </tbody></table>
+            </div>
+            <div class="hours-panel" id="tab-lunch">
+              <table class="hours-table"><tbody>
+                <tr><td>Monday</td><td>11 AM – 3 PM</td></tr><tr><td>Tuesday</td><td>11 AM – 3 PM</td></tr><tr><td>Wednesday</td><td>11 AM – 3 PM</td></tr><tr><td>Thursday</td><td>11 AM – 3 PM</td></tr><tr><td>Friday</td><td>11 AM – 3 PM</td></tr><tr><td>Saturday</td><td>11 AM – 3 PM</td></tr><tr class="closed"><td>Sunday</td><td>Closed</td></tr>
+              </tbody></table>
+            </div>
+          </div>
+          <div class="map-card">
+            <iframe title="Map showing Papa's Liquor and Deli in Poway" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1673.914799917815!2d-117.05525462293721!3d32.955508000952626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbfbef6f2df0a9%3A0x5500316fe0590f7d!2sPapa&#39;s%20Liquor%20%26%20Deli!5e0!3m2!1sen!2sus!4v1783394492106!5m2!1sen!2sus" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="map-details">
+              <div><strong>Papa's Liquor & Deli</strong><p>12759 Poway Rd #1<br>Poway, CA 92064<br>(858) 842-1111</p></div>
+              <a class="btn btn-primary" href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">Get Directions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. CONTACT -->
+    <section id="contact">
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow">Catering Requests</p>
+          <h2 class="section-title">Tell us about your event.</h2>
+          <div class="rule"></div>
+          <p class="section-copy">Share the details below and Papa's will follow up to confirm availability, menu options, timing, and pricing. For same-day or urgent requests, please call the store.</p>
+          <div class="contact-list">
+            <div class="contact-row"><span>📞</span><div><strong>Phone</strong><a href="tel:+18588421111">(858) 842-1111</a></div></div>
+            <div class="contact-row"><span>📍</span><div><strong>Pickup Location</strong><a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">12759 Poway Rd #1, Poway, CA 92064</a></div></div>
+            <div class="contact-row"><span>🍽</span><div><strong>Helpful Details</strong>Event date, guest count, preferred pickup time, sandwich or platter preferences, and dietary needs.</div></div>
+          </div>
+        </div>
+
+        <form class="contact-form catering-form" id="contactForm" action="https://formsubmit.co/papasliquor.niko@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Catering Request — Papa's Liquor & Deli">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_autoresponse" value="Thank you for contacting Papa's Liquor & Deli. We received your catering request and will follow up to confirm availability, menu options, timing, and pricing. For urgent or same-day requests, please call (858) 842-1111.">
+          <input type="text" name="_honey" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-intro">
+            <div>
+              <p class="form-kicker">Catering inquiry</p>
+              <h3>Plan your order with Papa's.</h3>
+              <p>Complete the details below and our team will contact you to finalize the menu and timing.</p>
+            </div>
+            <span class="form-time-note">Usually takes 2–3 minutes</span>
+          </div>
+
+          <fieldset class="form-step">
+            <legend>
+              <span class="step-number">1</span>
+              <span><strong>Your information</strong><small>How should we reach you?</small></span>
+            </legend>
+            <div class="form-row">
+              <div class="field"><label for="firstName">First name <span aria-hidden="true">*</span></label><input id="firstName" name="First Name" type="text" autocomplete="given-name" required></div>
+              <div class="field"><label for="lastName">Last name <span aria-hidden="true">*</span></label><input id="lastName" name="Last Name" type="text" autocomplete="family-name" required></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="email">Email <span aria-hidden="true">*</span></label><input id="email" name="Email" type="email" autocomplete="email" required></div>
+              <div class="field"><label for="phone">Phone <span aria-hidden="true">*</span></label><input id="phone" name="Phone" type="tel" autocomplete="tel" placeholder="(858) 555-0123" required></div>
+            </div>
+            <div class="field">
+              <label for="contactPreference">Preferred contact method</label>
+              <select id="contactPreference" name="Preferred Contact Method">
+                <option>Email</option><option>Phone call</option><option>Text message</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-step">
+            <legend>
+              <span class="step-number">2</span>
+              <span><strong>Event details</strong><small>Tell us when and who you are feeding.</small></span>
+            </legend>
+            <div class="form-row form-row-three">
+              <div class="field"><label for="eventDate">Event date <span aria-hidden="true">*</span></label><input id="eventDate" name="Event Date" type="date" required></div>
+              <div class="field"><label for="eventTime">Preferred time <span aria-hidden="true">*</span></label><input id="eventTime" name="Preferred Time" type="time" required></div>
+              <div class="field"><label for="guestCount">Guest count <span aria-hidden="true">*</span></label><input id="guestCount" name="Guest Count" type="number" min="1" max="1000" inputmode="numeric" placeholder="30" required></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="eventType">Event type <span aria-hidden="true">*</span></label><select id="eventType" name="Event Type" required><option value="" selected disabled>Select an event</option><option>Office lunch or meeting</option><option>Birthday</option><option>Graduation</option><option>Family gathering</option><option>Wedding or shower</option><option>School or team event</option><option>Other</option></select></div>
+              <div class="field"><label for="serviceType">Order type <span aria-hidden="true">*</span></label><select id="serviceType" name="Order Type" required><option value="Pickup" selected>Pickup</option><option value="Delivery request">Delivery request</option></select></div>
+            </div>
+            <div class="field delivery-address" id="deliveryAddressField" hidden><label for="deliveryAddress">Delivery address</label><input id="deliveryAddress" name="Delivery Address" type="text" autocomplete="street-address" placeholder="Street address, city, and ZIP"></div>
+          </fieldset>
+
+          <fieldset class="form-step">
+            <legend>
+              <span class="step-number">3</span>
+              <span><strong>Menu request</strong><small>Give us a starting point for your order.</small></span>
+            </legend>
+            <div class="form-row">
+              <div class="field"><label for="menuInterest">Menu interest</label><select id="menuInterest" name="Menu Interest"><option>Sandwich platters</option><option>Individual sandwiches</option><option>Salads</option><option>Mixed deli order</option><option>Not sure — please recommend</option></select></div>
+              <div class="field"><label for="budget">Approximate budget</label><select id="budget" name="Approximate Budget"><option value="">Not sure yet</option><option>Under $100</option><option>$100–$249</option><option>$250–$499</option><option>$500–$999</option><option>$1,000+</option></select></div>
+            </div>
+            <div class="field"><label for="dietaryNeeds">Dietary needs or allergies</label><input id="dietaryNeeds" name="Dietary Needs or Allergies" type="text" placeholder="Vegetarian, gluten sensitivity, allergies, etc."></div>
+            <div class="field"><label for="message">Additional details</label><textarea id="message" name="Additional Details" rows="5" placeholder="Requested items, quantities, serving preferences, setup notes, or anything else we should know."></textarea></div>
+          </fieldset>
+
+          <div class="form-submit-panel">
+            <label class="consent-row"><input type="checkbox" name="Contact Permission" value="Yes" required><span>I understand this is a request and the order is not confirmed until Papa's contacts me.</span></label>
+            <button class="btn btn-gold form-submit" type="submit"><span>Send Catering Request</span><span aria-hidden="true">→</span></button>
+            <p class="form-note">Papa's will contact you to confirm availability, pricing, and final details. Submitting this form does not place or pay for an order.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 11. SOCIAL -->
+    <section id="social">
+      <div class="container">
+        <p class="eyebrow">Follow Along</p>
+        <h2 class="section-title">Find Papa's online.</h2>
+        <div class="rule" style="margin-inline:auto;"></div>
+        <p class="section-copy" style="margin-inline:auto;">Follow new deli items, store updates, specials, and behind-the-scenes moments.</p>
+        <div class="social-links">
+          <a class="social-card" href="https://www.instagram.com/papasliquoranddeli" target="_blank" rel="noopener"><div class="icon">📸</div><strong>Instagram</strong><span>@papasliquoranddeli</span></a>
+          <a class="social-card" href="https://www.tiktok.com/@papasliquordeli" target="_blank" rel="noopener"><div class="icon">🎵</div><strong>TikTok</strong><span>@papasliquordeli</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 12. FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Papa's Liquor & Deli</div>
+      <div class="footer-links"><a href="deli.html">Deli Menu</a><a href="menu.html">Inventory</a><a href="#location">Visit Us</a></div>
+      <div class="footer-legal">Must be 21+ to purchase alcohol. Drink responsibly.</div>
+    </div>
+  </footer>
+
+  <div class="mobile-bar" aria-label="Quick actions">
+    <a href="tel:+18588421111">📞<br>Call</a>
+    <a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">📍<br>Directions</a>
+    <a href="#order">🛍<br>Order</a>
+  </div>
+  <script>
+    (function () {
+      function initMobileNavigation() {
+        const nav = document.querySelector('.site-nav');
+        const toggle = document.querySelector('.menu-toggle');
+        const links = document.getElementById('navLinks');
+        if (!nav || !toggle || !links || toggle.dataset.ready === 'true') return;
+
+        toggle.dataset.ready = 'true';
+
+        function setOpen(open) {
+          nav.classList.toggle('nav-open', open);
+          links.classList.toggle('open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+          toggle.innerHTML = open ? '&#10005;' : '&#9776;';
+          document.body.classList.toggle('menu-open', open);
+        }
+
+        toggle.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        }, { passive: false });
+
+        toggle.addEventListener('touchend', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        }, { passive: false });
+
+        links.addEventListener('click', function (event) {
+          if (event.target.closest('a')) setOpen(false);
+        });
+
+        document.addEventListener('click', function (event) {
+          if (toggle.getAttribute('aria-expanded') === 'true' && !nav.contains(event.target)) {
+            setOpen(false);
+          }
+        });
+
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 900) setOpen(false);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileNavigation);
+      } else {
+        initMobileNavigation();
+      }
+    })();
+  </script>
+  <script>
+    (function () {
+      const STORE_TIME_ZONE = 'America/Los_Angeles';
+      const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const STORE_HOURS = {
+        0: { open: 8.5, close: 20.5, label: '8:30 AM – 8:30 PM' },
+        1: { open: 8, close: 21, label: '8:00 AM – 9:00 PM' },
+        2: { open: 8, close: 21, label: '8:00 AM – 9:00 PM' },
+        3: { open: 8, close: 21, label: '8:00 AM – 9:00 PM' },
+        4: { open: 8, close: 21, label: '8:00 AM – 9:00 PM' },
+        5: { open: 8, close: 21, label: '8:00 AM – 9:00 PM' },
+        6: { open: 8, close: 21, label: '8:00 AM – 9:00 PM' }
+      };
+
+      function storeNow() {
+        const parts = new Intl.DateTimeFormat('en-US', {
+          timeZone: STORE_TIME_ZONE,
+          weekday: 'long',
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: false
+        }).formatToParts(new Date());
+
+        const values = {};
+        parts.forEach(function (part) { values[part.type] = part.value; });
+        let hour = Number(values.hour);
+        if (hour === 24) hour = 0;
+        return {
+          day: DAY_NAMES.indexOf(values.weekday),
+          hour: hour,
+          minute: Number(values.minute)
+        };
+      }
+
+      function formatHour(decimalHour) {
+        const totalMinutes = Math.round(decimalHour * 60);
+        const hour24 = Math.floor(totalMinutes / 60) % 24;
+        const minute = totalMinutes % 60;
+        const suffix = hour24 >= 12 ? 'PM' : 'AM';
+        const hour12 = hour24 % 12 || 12;
+        return hour12 + (minute ? ':' + String(minute).padStart(2, '0') : ':00') + ' ' + suffix;
+      }
+
+      function nextOpening(day, currentTime) {
+        const today = STORE_HOURS[day];
+        if (currentTime < today.open) {
+          return 'Opens today at ' + formatHour(today.open);
+        }
+        for (let offset = 1; offset <= 7; offset += 1) {
+          const nextDay = (day + offset) % 7;
+          const hours = STORE_HOURS[nextDay];
+          if (hours) {
+            const label = offset === 1 ? 'tomorrow' : DAY_NAMES[nextDay];
+            return 'Opens ' + label + ' at ' + formatHour(hours.open);
+          }
+        }
+        return '';
+      }
+
+      function updateStoreStatus() {
+        const statusEl = document.getElementById('openStatus');
+        const hoursEl = document.getElementById('todayHours');
+        if (!statusEl || !hoursEl) return;
+
+        const now = storeNow();
+        const currentTime = now.hour + now.minute / 60;
+        const hours = STORE_HOURS[now.day];
+        const isOpen = currentTime >= hours.open && currentTime < hours.close;
+
+        if (isOpen) {
+          statusEl.innerHTML = '<span class="status-dot open" aria-hidden="true"></span><span><strong>Open Now</strong><small>Open until ' + formatHour(hours.close) + '</small></span>';
+        } else {
+          statusEl.innerHTML = '<span class="status-dot closed" aria-hidden="true"></span><span><strong>Closed Now</strong><small>' + nextOpening(now.day, currentTime) + '</small></span>';
+        }
+        hoursEl.innerHTML = '<strong>' + DAY_NAMES[now.day] + '</strong><small>' + hours.label + '</small>';
+
+        document.querySelectorAll('.hours-table tr').forEach(function (row) {
+          row.classList.remove('today');
+          const firstCell = row.querySelector('td');
+          if (firstCell && firstCell.textContent.trim() === DAY_NAMES[now.day]) row.classList.add('today');
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateStoreStatus);
+      } else {
+        updateStoreStatus();
+      }
+      window.setInterval(updateStoreStatus, 60000);
+    })();
+  </script>
+  <script src="js/main.js?v=20260714-9" defer></script>
+  <script src="js/agegate.js?v=20260714-9" defer></script>
+</body>
+</html>
