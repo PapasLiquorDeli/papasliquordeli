@@ -262,31 +262,84 @@
     /* ── SALADS GRID ── */
     .salads-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
     }
     .salad-card {
-      background: var(--white); padding: 1.6rem 1.4rem;
-      display: flex; flex-direction: column; gap: 0.5rem;
-      transition: background 0.2s; position: relative; overflow: hidden;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
     }
     .salad-card:hover { background: var(--panel); }
     .salad-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px; background: var(--green);
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green);
       transition: width 0.3s ease;
     }
     .salad-card:hover::after { width: 100%; }
+
+    /* Same image frame and proportions as sandwich cards */
+    .salad-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--off-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .salad-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .salad-card:hover .salad-img img { transform: scale(1.04); }
+
+    .salad-body {
+      padding: 1.4rem 1.4rem 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .salad-card-no-image .salad-body { min-height: 100%; }
     .salad-icon { font-size: 1.6rem; }
     .salad-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1rem; font-weight: 700; color: var(--red);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1.2;
     }
-    .salad-desc { font-size: 0.8rem; font-weight: 300; color: var(--muted); line-height: 1.6; flex: 1; }
+    .salad-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
     .salad-price {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-weight: 700; color: var(--gold);
-      padding-top: 0.5rem; border-top: 1px solid var(--border);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-top: 0.6rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
     }
 
     /* ── DESSERT ── */
@@ -315,7 +368,7 @@
       .content { padding: 2rem 1.5rem 4rem; }
       .special-banner { grid-template-columns: 1fr; gap: 1.2rem; }
       .sandwich-grid { grid-template-columns: 1fr; }
-      .salads-grid { grid-template-columns: 1fr 1fr; }
+      .salads-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   
@@ -331,8 +384,8 @@ body { padding-bottom: 0; }
 .nav-inner { width: min(1120px, calc(100% - 3rem)); height: 100%; margin: 0 auto; display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .brand { display:flex; align-items:center; gap:.7rem; text-decoration:none; color:var(--red); }
 .brand img { width:50px; height:50px; object-fit:contain; }
-.brand-text { font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; line-height:1.05; }
-.brand-text span { display:block; color:var(--gold); }
+.brand-text { font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; line-height:1.05; white-space:nowrap; }
+.brand-text span { display:inline; color:var(--gold); }
 .nav-links { display:flex; align-items:center; gap:1.55rem; list-style:none; }
 .nav-links a { color:var(--muted); text-decoration:none; font-size:.67rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase; transition:color .2s; white-space:nowrap; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color:var(--red); }
@@ -362,8 +415,6 @@ body { padding-bottom: 0; }
 
 /* ── CARD / IMAGE CLEANUP ── */
 .sandwich-img img { display:block; }
-.salad-card .sandwich-img { margin:-1.6rem -1.4rem .8rem; width:auto; aspect-ratio:16/9; }
-.salad-card .sandwich-img img { width:100%; height:100%; object-fit:cover; display:block; }
 .menu-notice { margin-top:-1.3rem; margin-bottom:2rem; padding:.9rem 1rem; background:var(--gold-dim); border-left:3px solid var(--gold); color:var(--muted); font-size:.78rem; line-height:1.6; }
 
 /* ── UPDATED FOOTER ── */
