@@ -258,6 +258,7 @@
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
 
+/* FINAL OVERRIDE: homepage favorites use the same short, wide image shape as deli cards. */
 #popular .popular-grid .food-card-image {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -281,5 +282,83 @@
 @media (max-width: 620px) {
   #popular .popular-grid .food-card-image {
     aspect-ratio: 16 / 9;
+  }
+}
+
+
+/* ── V3 HERO BRAND LOCKUP ── */
+.hero-title {
+  margin: 0 0 1.25rem;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4rem, 7.2vw, 7rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+}
+
+.hero-title span {
+  display: block;
+  width: fit-content;
+}
+
+.hero-title .hero-red {
+  color: var(--red);
+}
+
+.hero-title .hero-gold {
+  color: var(--gold);
+}
+
+.hero-title .hero-gold:last-child {
+  padding-bottom: 0.08em;
+}
+
+.hero-content .eyebrow {
+  margin-bottom: 1.15rem;
+}
+
+.hero-copy {
+  max-width: 610px;
+}
+
+.hero-visual {
+  max-width: 500px;
+  justify-self: end;
+}
+
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 900px) {
+  .hero-title {
+    font-size: clamp(3.6rem, 11vw, 5.6rem);
+    line-height: 0.84;
+  }
+  .hero-title span {
+    margin-inline: auto;
+  }
+  .hero-content {
+    text-align: center;
+  }
+  .hero-copy {
+    margin-inline: auto;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .hero-visual {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero-title {
+    font-size: clamp(3.2rem, 16vw, 4.8rem);
+    line-height: 0.86;
   }
 }
