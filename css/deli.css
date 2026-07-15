@@ -176,15 +176,18 @@
 
     /* ── SANDWICH GRID ── */
     .sandwich-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
       background: transparent;
       border-top: 1px solid var(--border);
       border-left: 1px solid var(--border);
     }
 
     .sandwich-card {
+      flex: 0 0 33.333333%;
+      width: 33.333333%;
+      min-width: 0;
       background: var(--white);
       display: flex; flex-direction: column;
       transition: background 0.2s;
@@ -263,18 +266,20 @@
 
     /* ── SALADS GRID ── */
     .salads-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
       background: transparent;
       border-top: 1px solid var(--border);
       border-left: 1px solid var(--border);
     }
     .salad-card {
+      flex: 0 0 33.333333%;
+      width: 33.333333%;
+      min-width: 0;
       background: var(--white);
       display: flex;
       flex-direction: column;
-      min-width: 0;
       transition: background 0.2s;
       position: relative;
       overflow: hidden;
@@ -366,14 +371,17 @@
       font-size: 1.1rem; font-weight: 700; color: var(--gold);
     }
 
-    @media (max-width: 768px) {
+    
+    @media (min-width: 769px) and (max-width: 980px) {
+      .sandwich-card, .salad-card { flex-basis: 50%; width: 50%; }
+    }
+@media (max-width: 768px) {
       
       .page-header { padding: 6rem 1.5rem 2.5rem; }
       .section-nav-inner { padding: 0 1rem; }
       .content { padding: 2rem 1.5rem 4rem; }
       .special-banner { grid-template-columns: 1fr; gap: 1.2rem; }
-      .sandwich-grid { grid-template-columns: 1fr; }
-      .salads-grid { grid-template-columns: 1fr; }
+      .sandwich-card, .salad-card { flex-basis: 100%; width: 100%; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   
