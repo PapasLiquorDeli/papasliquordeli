@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260714-7">
+  <link rel="stylesheet" href="css/styles.css?v=20260714-8">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -384,7 +384,60 @@
     <a href="https://maps.google.com/?q=12759+Poway+Rd+%231+Poway+CA+92064" target="_blank" rel="noopener">📍<br>Directions</a>
     <a href="#order">🛍<br>Order</a>
   </div>
-  <script src="js/main.js?v=20260714-7" defer></script>
-  <script src="js/agegate.js" defer></script>
+  <script>
+    (function () {
+      function initMobileNavigation() {
+        const nav = document.querySelector('.site-nav');
+        const toggle = document.querySelector('.menu-toggle');
+        const links = document.getElementById('navLinks');
+        if (!nav || !toggle || !links || toggle.dataset.ready === 'true') return;
+
+        toggle.dataset.ready = 'true';
+
+        function setOpen(open) {
+          nav.classList.toggle('nav-open', open);
+          links.classList.toggle('open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+          toggle.innerHTML = open ? '&#10005;' : '&#9776;';
+          document.body.classList.toggle('menu-open', open);
+        }
+
+        toggle.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        }, { passive: false });
+
+        toggle.addEventListener('touchend', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        }, { passive: false });
+
+        links.addEventListener('click', function (event) {
+          if (event.target.closest('a')) setOpen(false);
+        });
+
+        document.addEventListener('click', function (event) {
+          if (toggle.getAttribute('aria-expanded') === 'true' && !nav.contains(event.target)) {
+            setOpen(false);
+          }
+        });
+
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 900) setOpen(false);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileNavigation);
+      } else {
+        initMobileNavigation();
+      }
+    })();
+  </script>
+  <script src="js/main.js?v=20260714-8" defer></script>
+  <script src="js/agegate.js?v=20260714-8" defer></script>
 </body>
 </html>
