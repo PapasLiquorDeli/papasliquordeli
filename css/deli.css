@@ -473,3 +473,11 @@ body { padding-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
   *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
+
+
+/* Reliable mobile navigation */
+.menu-toggle { touch-action: manipulation; -webkit-tap-highlight-color: transparent; position: relative; z-index: 502; }
+body.menu-open { overflow: hidden; }
+@media (max-width: 760px) {
+  .nav-links.open { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; z-index: 501; }
+}
